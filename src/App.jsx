@@ -30,7 +30,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="Keroumi-V1/" element={<Home />} />
+          <Route path="/" element={<Home />} />
         </Routes>
       </Router>
     </HideNav.Provider>
