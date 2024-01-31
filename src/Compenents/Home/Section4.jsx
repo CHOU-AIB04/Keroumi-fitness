@@ -36,7 +36,7 @@ export const Section4 = () => {
     <section className='w-full flex flex-col items-center md:items-start gap-10 md:flex-row justify-between relative top-[800px] small_tablet:top-52'>
         <nav className='flex flex-col gap-5'>
             <img src={pic1} alt="pic" className='topmove rounded-xl overflow-hidden  w-[330px] sm:w-[400px] small_tablet:w-[450px] relative left-0 small_tablet:left-6 object-cover pi'/>
-            <img src={pic2} alt="pic" className={`${display.visible} topmovee small_tablet:visible pi self-center rounded-xl overflow-hidden  top-52 left-52 z-20 absolute object-cover`}/>
+            <img src={pic2} alt="pic" className={`${display.visible} topmovee small_tablet:visible sh self-center rounded-xl overflow-hidden  top-52 left-52 z-20 absolute object-cover`}/>
             <img src={pic3} alt="pic" className={`${display.visible} leftmove pi w-[320px] rounded-xl overflow-hidden relative  z-30 top-10 object-cover`}/>
          </nav>       
          <nav className='w-[80%] md:w-[40%] flex flex-col items-center gap-4 small_tablet:gap-7 relative right-0 small_tablet:right-12'>

@@ -11,22 +11,22 @@ export const Footer = () => {
     }
   return (
     <footer className='relative sm:top-[4100px] top-[2950px] small_tablet:top-[1350px] h-56 flex flex-col items-center justify-between w-full'>
-        <Link to="Keroumi-V1/">
-        <motion.div initial={{left:"-150px",opacity:0}} transition={{duration:1}} whileInView={{left:"0px",opacity:1}} viewport={{once:true}} className='w-52 small:w-72 relative'>
+        <Link to="">
+        <motion.div initial={{left:"-150px",opacity:0}} transition={{duration:1}} whileInView={{left:"0px",opacity:1}} viewport={{once:true}} className='w-52 small:w-72 relative' onClick={Hidenav}>
             <img src={logo} alt="picture" />
         </motion.div>
         </Link>
         <motion.ul viewport={{once:true}} initial={{left:"150px",opacity:0}} transition={{duration:1}} whileInView={{left:"0px",opacity:1}} className='text-white w-[350px] justify-evenly small:justify-between items-center flex relative'>
-            <NavLink to="Keroumi-V1/" onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="" onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Home</li>
             </NavLink>
-            <NavLink to="Keroumi-V1/Contact" onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="/Contact" onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Contact</li>
             </NavLink>
-            <NavLink to="Keroumi-V1/About" onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="/About" onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>About</li>
             </NavLink>
-            <NavLink to="Keroumi-V1/Protein" onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="/Protein" onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Protein<span className='ml-1'>Store</span></li>
             </NavLink>     
         </motion.ul>

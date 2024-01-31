@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Compenents/Header/Header";
@@ -6,6 +6,8 @@ import { Footer } from "./Compenents/Footer/Footer";
 import { HideNav } from "./Contexts/Hide-nav-context";
 import { Loading } from "./Compenents/Preloading/Loading";
 import { Home } from "./Compenents/Home/Home";
+import { Scroll } from "./Compenents/Scroll/Scroll";
+
 
 function App() {
   let [shownav, setshownav] = useState({
@@ -31,9 +33,10 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="Keroumi-V1/" element={<Home />}
+          <Route index element={<Home />}
           />
         </Routes>
+        <Scroll />
       </Router>
     </HideNav.Provider>
   );
