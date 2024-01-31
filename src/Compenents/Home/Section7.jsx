@@ -1,9 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 export const Section7 = () => {
-    let [count,setcount] = usestate({
-        
-    })
   return (
     <article className='w-[90%]  h-[1200px] sm:h-[700px] small_tablet:h-[500px] flex flex-col items-center justify-between relative top-[2890px] sm:top-[2400px]  small_tablet:top-[700px]'>
         <motion.section viewport={{once:true}} initial={{gap:"100px",opacity:0}} transition={{duration:1}} whileInView={{gap:"20px",opacity:1}} className='w-full h-56  grid grid-cols-1 small_tablet:grid-cols-4 sm:grid-cols-2 relative'>
