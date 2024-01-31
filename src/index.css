@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: black;
+  overflow-x: hidden;
+
+}
+.sh {
+  box-shadow: 0 0 10px orangered;
+}
+
+.af::after {
+  content: "";
+  position: absolute;
+  width: 155%;
+  height: 0%;
+  background: linear-gradient(rgba(255, 166, 0, 0.329), transparent);
+  border-top: none;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  transition: 0.5s;
+}
+.af:hover::after {
+  height: 100%;
+  border-top: 2px solid orangered;
+}
+.af:hover {
+  color: orangered;
+}
+.tr {
+  transform: translateY(100%);
+}
+.pi {
+  box-shadow: 0 0 5px white;
+}
+.topmove {
+  animation: topmove 2s linear infinite;
+}
+@keyframes topmove {
+  0% {
+    top: 10px;
+  }
+  20% {
+    top: 15px;
+  }
+  40% {
+    top: 20px;
+  }
+  60% {
+    top: 15px;
+  }
+  80% {
+    top: 10px;
+  }
+  100% {
+    top: 10px;
+  }
+}
+.topmovee {
+  animation: topmovee 2s linear infinite;
+}
+@keyframes topmovee {
+  0% {
+    top: 208px;
+  }
+  20% {
+    top: 212px;
+  }
+  40% {
+    top: 222px;
+  }
+  60% {
+    top: 219px;
+  }
+  80% {
+    top: 212px;
+  }
+  100% {
+    top: 208px;
+  }
+}
+
+.leftmove {
+  animation: leftmove 2s linear infinite;
+}
+@keyframes leftmove {
+  0% {
+    left: 10px;
+  }
+  20% {
+    left: 15px;
+  }
+  40% {
+    left: 20px;
+  }
+  60% {
+    left: 10px;
+  }
+  80% {
+    left: 5px;
+  }
+  100% {
+    left: 10px;
+  }
+}
+.word::after {
+  position: absolute;
+  content: attr(value);
+  top: 50%;
+  left: -50px;
+  transform: translate(-50%);
+  font-size: 40px;
+  font-weight: bold;
+  transform: rotate(-90deg);
+  transition: 0.7s;
+  opacity: 0;
+}
+.word::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 180px;
+  background: rgb(255, 102, 0);
+  border-top-left-radius: 90px;
+  border-top-right-radius: 90px;
+  z-index: -1;
+  transition: 0.7s;
+  opacity: 0;
+}
+.word:hover::after,
+.word:hover::before {
+  opacity: 1;
+}
+
+.el::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  border-bottom: 1px solid grey;
+  left: 0;
+  bottom: -3px;
+}
