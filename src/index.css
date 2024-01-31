@@ -153,3 +153,27 @@ body {
   left: 0;
   bottom: -3px;
 }
+.preload{
+  animation: preload 2s linear infinite;
+}
+@keyframes preload {
+  0%{
+    top: 50%;
+  }
+  20%{
+    top: 46%;
+  }
+  40%{
+    top: 44%;
+  }
+  60%{
+    top: 42%;
+  }
+  80%{
+    top: 47%;
+  }
+  100%{
+    top: 50%;
+  }
+
+}

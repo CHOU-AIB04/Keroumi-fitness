@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Compenents/Header/Header";
 import { Footer } from "./Compenents/Footer/Footer";
 import { HideNav } from "./Contexts/Hide-nav-context";
+import { Loading } from "./Compenents/Preloading/Loading";
 import { Home } from "./Compenents/Home/Home";
 
 function App() {
@@ -30,7 +31,8 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="Keroumi-V1/" element={<Home />}
+          />
         </Routes>
       </Router>
     </HideNav.Provider>
