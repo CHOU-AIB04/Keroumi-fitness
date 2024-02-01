@@ -6,12 +6,13 @@ export default {
   ],
   variants: {
     extend: {
+      display: ["group-hover"],
       visibility: ['responsive', 'hover', 'focus', 'group-hover'],
     },
   },
   theme: {
     screens :{
-      tablet : "1034px",
+      tablet : "950px",
       small_tablet : "900px",
       sm : "600px",
       small : "550px",

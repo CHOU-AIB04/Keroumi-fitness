@@ -7,18 +7,20 @@ import { HideNav } from "./Contexts/Hide-nav-context";
 import { Loading } from "./Compenents/Preloading/Loading";
 import { Home } from "./Compenents/Home/Home";
 import { Scroll } from "./Compenents/Scroll/Scroll";
+import { Contact } from "./Compenents/Contact/Contact";
+import { About } from "./Compenents/About/About";
 
 
 function App() {
   let [shownav, setshownav] = useState({
-    opacity: "opacity-0",
+    opacity: "invisible",
     icon: "bi bi-list",
   });
   function Hidenav() {
     setshownav(function (prev) {
       return {
         ...prev,
-        opacity: "opacity-0",
+        opacity: "invisible",
         icon: "bi bi-list",
       };
     });
@@ -33,8 +35,9 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="Keroumi-V1/" element={<Home />}
-          />
+          <Route path="Keroumi-V1/" element={<Home />}/>
+          <Route path="Keroumi-V1/Contact" element={<Contact/>} />
+          <Route path="Keroumi-V1/About" element={<About/>}/>
         </Routes>
         <Scroll />
       </Router>

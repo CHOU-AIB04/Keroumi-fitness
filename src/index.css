@@ -31,7 +31,7 @@ body {
   top: 0;
   left: 50%;
   transform: translate(-50%);
-  transition: 0.5s;
+  transition: inherit 0.5s;
 }
 .af:hover::after {
   height: 100%;
@@ -176,4 +176,33 @@ body {
     top: 50%;
   }
 
+}
+.mapsh{
+  box-shadow: 0 0 30px orangered;
+}
+.inputcol{
+  background-color: rgba(128, 128, 128, 0.4);
+}
+.aboutafter::after{
+  position: absolute;
+  content: "";
+  width: 90%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgb(255, 123, 0);
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: -1;
+}
+.aboutbefore::before{
+  position: absolute;
+  content: "";
+  width: 80%;
+  height: 140%;
+  border-radius: 50%;
+  background: linear-gradient(rgba(128, 128, 128, 0.123),transparent);
+  top: -50px;
+  left: -50px;
+  z-index: -1;
 }

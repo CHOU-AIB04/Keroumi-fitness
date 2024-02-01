@@ -13,7 +13,7 @@ const Header = () => {
         setshownav(function(prev){
             return {
                 ...prev,
-                opacity : prev.opacity === "opacity-0" ? "opacity-1" : "opacity-0",
+                opacity : prev.opacity === "invisible" ? "visible" : "invisible",
                 icon : prev.icon === "bi bi-list" ? "bi bi-x" : "bi bi-list"
             }
         })
@@ -29,11 +29,11 @@ const Header = () => {
             <img src={logo} alt="picture" />
         </div>
         </Link>
-        <ul className={`${shownav.opacity} small_tablet:opacity-100 absolute top-[190%] small_tablet:top-[55%] -translate-y-1/2 left-0 bg-white small_tablet:bg-transparent  sh small_tablet:shadow-none small_tablet:left-[53%] w-full small_tablet:w-[40%] h-52 small_tablet:h-full flex items-center  gap-3 small_tablet:gap-10 small_tablet:justify-start justify-between flex-col small_tablet:flex-row text-black small_tablet:text-white`}>
-            <li><NavLink to="Keroumi-V1/" end className='relative h-10 small_tablet:h-28 af  small_tablet:w-auto flex items-center cursor-pointer transition-all duration-500'onClick={Hidenav} style={({isActive})=> isActive ? style: null}>Home</NavLink></li>
-            <li><NavLink to="Keroumi-V1/Contact"className='relative h-10 small_tablet:h-28 af flex items-center cursor-pointer transition-all duration-500' onClick={Hidenav} style={({isActive})=> isActive ? style: null}>Contact</NavLink></li>
-            <li><NavLink to="Keroumi-V1/About"className='relative h-10 small_tablet:h-28 af flex items-center cursor-pointer transition-all duration-500' onClick={Hidenav} style={({isActive})=> isActive ? style: null}>About</NavLink></li>
-            <li><NavLink to="Keroumi-V1/Protein"className='relative h-10 small_tablet:h-28 af flex items-center cursor-pointer transition-all duration-500' onClick={Hidenav} style={({isActive})=> isActive ? style: null}>Protein<span className='ml-1'>Store</span></NavLink></li>
+        <ul className={` ${shownav.opacity} small_tablet:visible absolute top-[190%] small_tablet:top-[55%] -translate-y-1/2 left-0 bg-white small_tablet:bg-transparent  sh small_tablet:shadow-none small_tablet:left-[53%] w-full small_tablet:w-[40%] h-52 small_tablet:h-full flex items-center  gap-3 small_tablet:gap-10 small_tablet:justify-start justify-between flex-col small_tablet:flex-row text-black small_tablet:text-white`}>
+            <li><NavLink to="Keroumi-V1/" end className='relative h-10 small_tablet:h-28 af  small_tablet:w-auto flex items-center cursor-pointer'onClick={Hidenav} style={({isActive})=> isActive ? style: null}>Home</NavLink></li>
+            <li><NavLink to="Keroumi-V1/Contact"className='relative h-10 small_tablet:h-28 af flex items-center cursor-pointer' onClick={Hidenav} style={({isActive})=> isActive ? style: null}>Contact</NavLink></li>
+            <li><NavLink to="Keroumi-V1/About"className='relative h-10 small_tablet:h-28 af flex items-center cursor-pointer' onClick={Hidenav} style={({isActive})=> isActive ? style: null}>About</NavLink></li>
+            <li><NavLink to="Keroumi-V1/Protein"className='relative h-10 small_tablet:h-28 af flex items-center cursor-pointer' onClick={Hidenav} style={({isActive})=> isActive ? style: null}>Protein<span className='ml-1'>Store</span></NavLink></li>
         </ul>
         <i className="bi bi-search absolute top-1/2 -translate-y-1/2 text-white  right-10 text-[22px]"></i>
         <i className={`${shownav.icon} absolute top-1/2 -translate-y-1/2 text-white text-[22px]  right-20 visible small_tablet:hidden transition-all duration-500 cursor-pointer`} onClick={handle_click}></i>
