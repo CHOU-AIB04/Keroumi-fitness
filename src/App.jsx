@@ -33,7 +33,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route index element={<Home />}
+          <Route path="Keroumi-V1/" element={<Home />}
           />
         </Routes>
         <Scroll />
