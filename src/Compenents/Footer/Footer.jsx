@@ -31,7 +31,7 @@ export const Footer = () => {
             </NavLink>     
         </motion.ul>
        
-        <motion.p viewport={{once:true}} initial={{opacity:0}} transition={{duration:1}} whileInView={{opacity:1}} className='text-orange-600 relative top-4 text-[10px] small:text-[12px]'>@2024YassineKeroumi.All rights reserved.Developed By CHOUAIB</motion.p>
+        <motion.p viewport={{once:true}} initial={{opacity:0}} transition={{duration:1}} whileInView={{opacity:1}} className='text-orange-600 relative top-4 text-[10px] small:text-[15px]'>@2024YassineKeroumi.All rights reserved.Developed By CHOUAIB</motion.p>
         <div className='bg-orange-600 h-3 w-full'></div>
     </footer>
   )
