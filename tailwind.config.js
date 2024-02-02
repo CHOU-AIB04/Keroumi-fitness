@@ -16,7 +16,8 @@ export default {
       small_tablet : "900px",
       sm : "600px",
       small : "550px",
-      md : "800px"
+      md : "800px",
+      store : "1050px"
     },
     extend: {},
   },

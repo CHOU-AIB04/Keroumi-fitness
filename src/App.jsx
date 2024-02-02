@@ -9,6 +9,7 @@ import { Home } from "./Compenents/Home/Home";
 import { Scroll } from "./Compenents/Scroll/Scroll";
 import { Contact } from "./Compenents/Contact/Contact";
 import { About } from "./Compenents/About/About";
+import { StoreHeader } from "./Compenents/Store_Part/Store-Header";
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
   return (
     <HideNav.Provider value={{ shownav, setshownav, Hidenav }}>
         {
-          currentpath !== "/Keroumi-V1/Protein"  ? <Header /> : <></>
+          currentpath !== "/Keroumi-V1/Protein"  ? <Header /> : <StoreHeader />
         }
         <Routes>
           <Route path="Keroumi-V1/" element={<Home />}/>
