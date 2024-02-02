@@ -1,6 +1,6 @@
 import {React,useState} from 'react'
 import logo from '../../pictures/logo_keroumi.png'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink,useLocation } from 'react-router-dom'
 import { useContext } from 'react'
 import { HideNav } from '../../Contexts/Hide-nav-context'
 

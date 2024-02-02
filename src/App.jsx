@@ -1,6 +1,6 @@
 import { useState,useEffect } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from "./Compenents/Header/Header";
 import { Footer } from "./Compenents/Footer/Footer";
 import { HideNav } from "./Contexts/Hide-nav-context";
@@ -12,6 +12,8 @@ import { About } from "./Compenents/About/About";
 
 
 function App() {
+  let location = useLocation()
+  let currentpath = location.pathname
   let [shownav, setshownav] = useState({
     opacity: "invisible",
     icon: "bi bi-list",
@@ -29,18 +31,26 @@ function App() {
       behavior: "smooth",
     });
   }
-
   return (
     <HideNav.Provider value={{ shownav, setshownav, Hidenav }}>
-      <Router>
-        <Header />
+        {
+          currentpath !== "/Keroumi-V1/Protein"  ? <Header /> : <></>
+        }
         <Routes>
           <Route path="Keroumi-V1/" element={<Home />}/>
           <Route path="Keroumi-V1/Contact" element={<Contact/>} />
           <Route path="Keroumi-V1/About" element={<About/>}/>
         </Routes>
         <Scroll />
-      </Router>
+        {
+          currentpath === "/Keroumi-V1/" ? <Footer footer_responsive ="sm:top-[4100px] top-[2950px] small_tablet:top-[1400px]"/> : <></>
+        }
+        {
+          currentpath === "/Keroumi-V1/Contact" ? <Footer footer_responsive="top-[400px] small_tablet:top-[200px]" /> : <></>
+        }
+        {
+          currentpath === "/Keroumi-V1/About" ? <Footer footer_responsive="top-[2100px] small_tablet:top-[500px]"/> : <></>
+        }
     </HideNav.Provider>
   );
 }

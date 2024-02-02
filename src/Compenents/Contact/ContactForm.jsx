@@ -16,10 +16,10 @@ export const ContactForm = () => {
           <label className="text-gray-700 text-xl font-bold ">Votre Message</label>
           <input type="text"  className="h-16 rounded-3xl inputcol pl-3 text-white focus:outline-none"/>
         </div>
-        <button className="h-12 w-44 text-white font-bold cursor-pointer transition-all duration-500 hover:text-orange-500 hover:bg-white hover:scale-105 bg-orange-500 rounded-xl">Envoyer</button>
+        <button className="h-12 w-44 self-center sm:self-start text-white font-bold cursor-pointer transition-all duration-500 hover:text-orange-500 hover:bg-white hover:scale-105 bg-orange-500 rounded-xl">Envoyer</button>
       </form>
       <nav className="w-full small_tablet:w-[27%] flex flex-col gap-4 items-center small_tablet:items-start">
-        <h1 className="text-white font-bold text-[30px]">You can stay in touch with us this way</h1>
+        <h1 className="text-white font-bold text-[20px] sm:text-[30px] text-center sm:text-start">You can stay in touch with us this way</h1>
         <div className="flex items-center gap-4">
             <i className="bi bi-facebook text-gray-400 text-[25px] transition-all duration-500 hover:scale-105 hover:text-orange-500 cursor-pointer"></i>
             <i className="bi bi-instagram text-gray-400 text-[25px] transition-all duration-500 hover:scale-105 hover:text-orange-500 cursor-pointer"></i>

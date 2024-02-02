@@ -25,7 +25,6 @@ export const Home = () => {
       <Section6 />
       <Section7 />
       <Section8 />
-      <Footer footer_responsive ="sm:top-[4100px] top-[2950px] small_tablet:top-[1350px]" home="" About="About" Contact="Contact" Protein="Protein"/>
     </article>
   );
 };

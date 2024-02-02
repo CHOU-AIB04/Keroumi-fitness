@@ -25,9 +25,7 @@ export const About = () => {
       tittle3 ="NUTRITION" des3 = "Nutrition is the study of nutrients in food and how the body uses them." svg3={Svg.svg5}
       />
     </section>
-    <Galery />
-    <Footer footer_responsive="top-[2100px] small_tablet:top-[500px]" home="Keroumi/" About="" Contact="Contact" Protein="Protein"/>
-   
+    <Galery /> 
     </>
   )
 }

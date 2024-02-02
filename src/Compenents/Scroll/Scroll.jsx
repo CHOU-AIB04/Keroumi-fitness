@@ -21,7 +21,7 @@ export const Scroll = () => {
   return (
     <>
         {Scroll ? 
-            <div className='w-10 h-10 bg-orange-500 rounded-full sh fixed bottom-10 right-10 small:right-12 flex justify-center items-center cursor-pointer' onClick={handle}>
+            <div className='w-10 h-10 bg-orange-500 rounded-full sh fixed bottom-10 right-10 small:right-12 flex justify-center items-center cursor-pointer z-40' onClick={handle}>
                 <i className="bi bi-arrow-up text-white font-bold"></i>
             </div> 
             : 

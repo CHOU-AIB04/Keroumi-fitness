@@ -5,10 +5,12 @@ import { useContext } from 'react'
 import { HideNav } from '../../Contexts/Hide-nav-context'
 import { motion } from 'framer-motion'
 export const Footer = (props) => {
+    let navigate = useNavigate()
     const { shownav, setshownav, Hidenav } = useContext(HideNav);
     let style = {
         color : "orangered"
     }
+
   return (
     <footer className={`relative ${props.footer_responsive} h-56 flex flex-col items-center justify-between w-full`}>
         <Link to="">
@@ -17,16 +19,16 @@ export const Footer = (props) => {
         </motion.div>
         </Link>
         <motion.ul viewport={{once:true}} initial={{opacity:0}} transition={{duration:1}} whileInView={{opacity:1}} className='text-white w-[350px] justify-evenly small:justify-between items-center flex relative'>
-            <NavLink to={props.home} end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="Keroumi-V1/" end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Home</li>
             </NavLink>
-            <NavLink to={props.Contact} end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="Keroumi-V1/Contact" end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Contact</li>
             </NavLink>
-            <NavLink to={props.About} end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="Keroumi-V1/About" end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>About</li>
             </NavLink>
-            <NavLink to={props.Protein} end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="Keroumi-V1/Protein" end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Protein<span className='ml-1'>Store</span></li>
             </NavLink>     
         </motion.ul>
