@@ -4,7 +4,7 @@ import { Link ,NavLink,useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { HideNav } from '../../Contexts/Hide-nav-context'
 import { motion } from 'framer-motion'
-export const Footer = (props) => {
+const Footer = (props) => {
     let navigate = useNavigate()
     const { shownav, setshownav, Hidenav } = useContext(HideNav);
     let style = {
@@ -38,3 +38,4 @@ export const Footer = (props) => {
     </footer>
   )
 }
+export default Footer

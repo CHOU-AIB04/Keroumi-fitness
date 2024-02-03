@@ -1,11 +1,17 @@
-import React from 'react'
+import {React,useEffect} from 'react'
 import Svg from '../Svg'
 import { motion } from 'framer-motion'
 import { CoachInfo } from './CoachInfo'
 import { Section3 } from '../Home/Section3'
 import { Galery } from './Galery'
-import { Footer } from '../Footer/Footer'
-export const About = () => {
+const About = ({onload})=> {
+  useEffect(() => {
+    const fetchData = async () => {
+      onload && onload();
+    };
+
+    fetchData();
+  }, []);
   return (
     <>
     <section className='flex flex-col items-center'>
@@ -29,3 +35,4 @@ export const About = () => {
     </>
   )
 }
+export default About

@@ -1,6 +1,5 @@
-import React from "react";
+import {React,useEffect} from "react";
 import Svg from "../Svg";
-import { Footer } from "../Footer/Footer";
 import { Section1 } from "./Section1";
 import { Section2 } from "./Section2";
 import { Section3 } from "./Section3";
@@ -10,7 +9,18 @@ import { Section6 } from "./Section6";
 import { Section7 } from "./Section7";
 import { Section8 } from "./Section8";
 
-export const Home = () => {
+ const Home=({onload})=> {
+  useEffect(() => {
+    // Simulating some asynchronous operation (e.g., API call)
+    const fetchData = async () => {
+      // Your actual data fetching logic goes here
+
+      // Once the component is loaded, call the onLoad callback
+      onload && onload();
+    };
+
+    fetchData();
+  }, []);
   return (
     <article className="flex flex-col gap-10 small_tablet:gap-20 items-center mt-10">
       <Section1 />
@@ -28,3 +38,4 @@ export const Home = () => {
     </article>
   );
 };
+export default Home

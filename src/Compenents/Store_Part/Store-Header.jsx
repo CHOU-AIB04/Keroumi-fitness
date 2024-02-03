@@ -1,7 +1,7 @@
 import React from "react";
 import logo from '../../pictures/logo_keroumi.png'
 import { Link } from "react-router-dom";
-export const StoreHeader = () => {
+ const StoreHeader =()=>{
   return (
     <article className="w-[98%] h-32 top-4 relative left-1/2 -translate-x-1/2 rounded-md flex flex-col overflow-hidden">
       <section className="w-full h-[35%]  bg-gray-700 flex justify-center items-center">
@@ -42,3 +42,4 @@ export const StoreHeader = () => {
     </article>
   );
 };
+export default StoreHeader
