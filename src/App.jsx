@@ -15,7 +15,8 @@ function App() {
   let [isloaded,setisloaded] = useState({
     footer1: false,
     footer2: false,
-    footer3: false
+    footer3: false,
+    header : false,
   })
   let location = useLocation()
   let currentpath = location.pathname
@@ -40,7 +41,8 @@ function App() {
     setisloaded(function(prev){
       return {
         ...prev,
-        footer1 : prev.footer1 = true
+        footer1 : prev.footer1 = true,
+        header : prev.header = true
       }
     })
   }
@@ -48,7 +50,8 @@ function App() {
     setisloaded(function(prev){
       return {
         ...prev,
-        footer2 : prev.footer2 = true
+        footer2 : prev.footer2 = true,
+        header : prev.header = true
       }
     })
   }
@@ -56,14 +59,15 @@ function App() {
     setisloaded(function(prev){
       return {
         ...prev,
-        footer3 : prev.footer3 = true
+        footer3 : prev.footer3 = true,
+        header : prev.header = true
       }
     })
   }
   return (
     <HideNav.Provider value={{ shownav, setshownav, Hidenav }}>
         {
-          currentpath !== "/Keroumi-V1/Protein"  ? <Header /> : <StoreHeader />
+          currentpath !== "/Keroumi-V1/Protein"  ? isloaded.header ? <Header /> : <></> : <StoreHeader />
         }
         <Routes>
           <Route path="Keroumi-V1/" element={
