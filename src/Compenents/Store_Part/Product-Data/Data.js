@@ -18,6 +18,8 @@ import elite_whey_100 from "../Store-part-pic/Elite-Whey-100.jpg"
 import dymatize from "../Store-part-pic/Dymatize-Glutamine.jpg"
 import the_ripper from "../Store-part-pic/the-ripper.jpg"
 import Gmax from "../Store-part-pic/GH-MAX-180.jpg"
+import multi_vite from "../Store-part-pic/multi_vite.jpg"
+import arginine from "../Store-part-pic/arginine.jpg"
 export default [
     {
         id : 1,
@@ -196,6 +198,24 @@ export default [
         pic : Gmax ,
         price : "349,00", 
         fake_price :"400,00", 
+        available : true,
+        protein : true    
+    },
+    {
+        id : 21,
+        tittle: "Daily Formula Multivitamine 100 caps Universal", 
+        pic : multi_vite ,
+        price : "250,00", 
+        fake_price :null, 
+        available : true,
+        protein : true    
+    },
+    {
+        id : 22,
+        tittle: "Ashwagandha 450mg – 90 Capsules", 
+        pic : arginine ,
+        price : "299,00", 
+        fake_price :"350,00", 
         available : true,
         protein : true    
     },
