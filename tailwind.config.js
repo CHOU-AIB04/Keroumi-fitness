@@ -17,7 +17,8 @@ export default {
       sm : "600px",
       small : "550px",
       md : "800px",
-      store : "1050px"
+      store : "1050px",
+      product : "700px"
     },
     extend: {},
   },

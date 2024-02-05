@@ -10,15 +10,7 @@ const Header = () => {
     let {Hidenav} = useContext(HideNav)
     let {setshownav} = useContext(HideNav)
     let {shownav} = useContext(HideNav)
-    function handle_click(){
-        setshownav(function(prev){
-            return {
-                ...prev,
-                opacity : prev.opacity === "invisible" ? "visible" : "invisible",
-                icon : prev.icon === "bi bi-list" ? "bi bi-x" : "bi bi-list"
-            }
-        })
-    }
+    let {handle_click} = useContext(HideNav)
     let style = {
         color : "orangered"
     }
