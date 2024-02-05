@@ -17,7 +17,6 @@ import Background from "../StoreBackground/Background";
   }
   return (
     <>
-    <Background />
     <article className="w-[98%] h-32 top-4 relative left-1/2 -translate-x-1/2 flex flex-col rounded-md pi z-30">
       <section className="w-full h-[35%] bg-zinc-800 flex justify-center items-center  rounded-t-md">
         <div className="w-[340px] sm:w-[450px] flex justify-between items-center">

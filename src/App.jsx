@@ -5,6 +5,7 @@ import Header from "./Compenents/Header/Header";
 import { HideNav } from "./Contexts/Hide-nav-context";
 import { Loading } from "./Compenents/Preloading/Loading";
 import { Scroll } from "./Compenents/Scroll/Scroll";
+import Background from "./Compenents/Store_Part/StoreBackground/Background";
 import  StoreHeader  from "./Compenents/Store_Part/Header/Store-Header";
 import StoreFooter from "./Compenents/Store_Part/Footer/Store-Footer";
 import Alter from "./Compenents/Alter-preloader/Alter";
@@ -99,7 +100,7 @@ function App() {
     <HideNav.Provider value={{ shownav, setshownav, Hidenav,handle_click,scroll}}>
     <shareProductDetails.Provider value={{selecteditem,setselecteditem}}>
         {
-          currentpath === "/Keroumi-V1/Product-details" || currentpath === "/Keroumi-V1/Protein" || currentpath === "/keroumi-V1/Protein/Card" &&  isloaded.storeHeader ? <StoreHeader /> : isloaded.header ? <Header /> : <></>
+          currentpath === "/Keroumi-V1/Product-details" || currentpath === "/Keroumi-V1/Protein" || currentpath === "/keroumi-V1/Protein/Card" &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>
         }
         <Routes>
           <Route path="Keroumi-V1/" element={
@@ -118,17 +119,17 @@ function App() {
             </Suspense>
           }/>
           <Route  path="/Keroumi-V1/Protein" element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Background />}>
               <StorePage onload={Storeloading}/>
             </Suspense>
           }/>
           <Route path="/Keroumi-V1/Product-details" element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Alter />}>
                   <ProductDetails />
             </Suspense>
           } />
           <Route path="/keroumi-V1/Protein/Card" element={
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Alter />}>
               <Card />
             </Suspense>
           } />
