@@ -14,6 +14,10 @@ import Background from "../StoreBackground/Background";
   }
   function CardConponent(){
     navigate("/keroumi-V1/Protein/Card")
+    window.scrollTo({
+      top:450,
+      behavior:"smooth"
+    })
   }
   return (
     <>

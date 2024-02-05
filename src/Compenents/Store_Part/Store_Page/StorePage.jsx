@@ -34,6 +34,10 @@ const StorePage = ({onload}) => {
   function shareindex(id){
     setselecteditem(id)
     navigate("/Keroumi-V1/Product-details")
+    window.scrollTo({
+      top:450,
+      behavior:"smooth"
+    })
   }
   let product = filter.map(function(e){
     return(
@@ -57,7 +61,7 @@ const StorePage = ({onload}) => {
           {e.fake_price ? <p className='text-zinc-500 line-through test-sm'>{e.fake_price} MAD</p> : <></>}
         </div>
         {
-          e.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500'>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500'>lire la suite</button>
+          e.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500'>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500' onClick={()=>shareindex(e.id)}>lire la suite</button>
         }
       </nav>
     )
