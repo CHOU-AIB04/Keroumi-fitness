@@ -100,7 +100,7 @@ function App() {
     <HideNav.Provider value={{ shownav, setshownav, Hidenav,handle_click,scroll}}>
     <shareProductDetails.Provider value={{selecteditem,setselecteditem}}>
         {
-          currentpath === "/Keroumi-V1/Product-details" || currentpath === "/Keroumi-V1/Protein" || currentpath === "/keroumi-V1/Protein/Card" &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>
+          currentpath === "/Keroumi-V1/Protein/Product-details" || currentpath === "/Keroumi-V1/Protein" || currentpath === "/keroumi-V1/Protein/Card" &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>
         }
         <Routes>
           <Route path="Keroumi-V1/" element={
@@ -123,7 +123,7 @@ function App() {
               <StorePage onload={Storeloading}/>
             </Suspense>
           }/>
-          <Route path="/Keroumi-V1/Product-details" element={
+          <Route path="/Keroumi-V1/Protein/Product-details" element={
             <Suspense fallback={<Alter />}>
                   <ProductDetails />
             </Suspense>
@@ -154,7 +154,7 @@ function App() {
           </Suspense> : <></>
         }
         {
-          currentpath === "/Keroumi-V1/Protein" || currentpath === "/Keroumi-V1/Product-details" || currentpath === "/keroumi-V1/Protein/Card" && isloaded.storeFooter ?  <StoreFooter /> : <></>
+          currentpath === "/Keroumi-V1/Protein" || currentpath === "/Keroumi-V1/Protein/Product-details" || currentpath === "/keroumi-V1/Protein/Card" && isloaded.storeFooter ?  <StoreFooter /> : <></>
         }
        </shareProductDetails.Provider>
     </HideNav.Provider>

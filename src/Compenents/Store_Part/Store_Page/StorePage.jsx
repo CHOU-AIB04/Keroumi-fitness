@@ -33,7 +33,7 @@ const StorePage = ({onload}) => {
   })
   function shareindex(id){
     setselecteditem(id)
-    navigate("/Keroumi-V1/Product-details")
+    navigate("/Keroumi-V1/Protein/Product-details")
     window.scrollTo({
       top:450,
       behavior:"smooth"
