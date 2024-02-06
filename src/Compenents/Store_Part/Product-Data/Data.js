@@ -28,7 +28,15 @@ export default [
         price : "589,00", 
         fake_price : "630,00", 
         available : true,
-        protein : true
+        protein : true,
+        pointfort : [
+                        <li>Haute teneur en protéines (80g)</li>,
+                        <li> 1000 calories par portion</li>,
+                        <li>Faible teneur en sucres et matières grasses</li>,
+                        <li>Contient 10g de créatine + BCAA et acides aminés</li>
+                    ],
+        description : "Référence: MTMASELI3.18KG-CHF Points Forts : - Haute teneur en protéines (80g) - 1000 calories par portion - Faible teneur en sucres et matières grasses - Contient 10g de créatine + BCAA et acides aminés Goût Cookies & cream Chocolate Fudge Cake Vanilla Cake Marque : MuscleTech Référence : MTMASELI3.18KG-CHF Date d'expiration : 2024-06-25",
+
     },
     {
         id : 2,
@@ -37,7 +45,14 @@ export default [
         price : "950,00", 
         fake_price : null, 
         available : false,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>La protéine en poudre la plus vendue au monde.</li>,
+            <li> Contribue au maintien et à l’ augmentation de la masse musculaire.</li>,
+            <li>24 g des meilleures protéines de lactosérum,</li>,
+            <li>5,5 g de Mélange d’AACR</li>,
+            <li>Faible teneur en lipides et sucres</li>
+        ], 
     },
     {
         id : 3,
@@ -53,9 +68,9 @@ export default [
         tittle: "PLATINUM MULTIVITAMINS 90 TABS – MUSCLETECH", 
         pic : platinium_multi ,
         price : "249,00", 
-        fake_price : "280,00", 
+        fake_price : "280,00",
         available : false,
-        protein : true    
+        protein : true
     },
     {
         id : 5,

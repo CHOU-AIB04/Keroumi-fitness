@@ -1,5 +1,4 @@
 import { useState,lazy,Suspense } from "react";
-import "./App.css";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from "./Compenents/Header/Header";
 import { HideNav } from "./Contexts/Hide-nav-context";
@@ -11,6 +10,7 @@ import StoreFooter from "./Compenents/Store_Part/Footer/Store-Footer";
 import Alter from "./Compenents/Alter-preloader/Alter";
 import { useEffect } from "react";
 import { shareProductDetails } from "./Contexts/ProductDetails";
+import Effect from "./Compenents/Move_Effect/Effect";
 const StorePage = lazy(()=>import('./Compenents/Store_Part/Store_Page/StorePage'))
 const Footer = lazy(()=>import('./Compenents/Footer/Footer'))
 const Home = lazy(()=> import('./Compenents/Home/Home'))
@@ -119,7 +119,7 @@ function App() {
             </Suspense>
           }/>
           <Route  path="/Keroumi-V1/Protein" element={
-            <Suspense fallback={<Background />}>
+            <Suspense fallback={<Loading />}>
               <StorePage onload={Storeloading}/>
             </Suspense>
           }/>

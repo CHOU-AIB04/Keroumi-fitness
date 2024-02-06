@@ -13,7 +13,7 @@ const Footer = (props) => {
 
   return (
     <footer className={`relative ${props.footer_responsive} h-56 flex flex-col items-center justify-between w-full`}>
-        <Link to="">
+        <Link to="Keroumi-V1/">
         <motion.div initial={{opacity:0}} transition={{duration:1}} whileInView={{opacity:1}} viewport={{once:true}} className='w-52 small:w-72 relative' onClick={Hidenav}>
             <img src={logo} alt="picture" />
         </motion.div>
