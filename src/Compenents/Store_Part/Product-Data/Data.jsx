@@ -61,7 +61,11 @@ export default [
         price : "379,00", 
         fake_price : "430,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Renforce l’énergie musculaire</li>,
+            <li>améliore la croissance et retarde la fatigue</li>
+        ], 
     },
     {
         id : 4,
@@ -70,7 +74,12 @@ export default [
         price : "249,00", 
         fake_price : "280,00",
         available : false,
-        protein : true
+        protein : true,
+        pointfort : [
+            <li>20 minéraux et vitamines</li>,
+            <li>Riche en acides aminés </li>,
+            <li>Renforce et soutient votre organisme Marque</li>
+        ], 
     },
     {
         id : 5,
@@ -79,7 +88,14 @@ export default [
         price : "549,00", 
         fake_price : "600,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>915 calories pour 3 dosettes</li>,
+            <li>31,5g de protéines et 192g de glucides pour 3 dosettes</li>,
+            <li>Accélère la régénération et la récupération musculaire post-entraînement</li>,
+            <li>Riche en BCAA et glutamine</li>,
+            <li>Permet d'augmenter la force et les performances</li>,  
+        ],  
     },
     {
         id : 6,
@@ -88,7 +104,12 @@ export default [
         price : "470,00", 
         fake_price : "500,00", 
         available : false,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Favorise le développement des muscles et le volume.</li>,
+            <li>Améliore la récupération entre les efforts</li>,
+            <li>Absorption facile.</li>,
+        ],
     },
     {
         id : 7,
@@ -97,7 +118,11 @@ export default [
         price : "89,00", 
         fake_price : "120,00", 
         available : true,
-        protein : false    
+        protein : false,
+        pointfort : [
+            <li>Please compare the detail sizes with yours before you buy!!! Colors may be slightly different depending on computer and monitor settings Please allow 1-3cm differs due to manual measurement,</li>,
+            
+        ],  
     },
     {
         id : 8,
@@ -106,7 +131,13 @@ export default [
         price : "739,00", 
         fake_price : "780,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Peptides de lactosérum hydrolysés à absorption rapide</li>,
+            <li>100% de lactosérum</li>,
+            <li>pas d’ingrédients actifs ajoutés</li>,
+            <li>Isolat de petit-lait concentré pour un profil supérieur d’acides aminés Goût Cookies & cream French vanilla cream Double Chocolate Strawberry Shortcake</li>,
+        ],    
     },
     {
         id : 9,
@@ -115,7 +146,10 @@ export default [
         price : "1.250,00", 
         fake_price : null, 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Mélange d’Isolate et Hydrolysée ultra pure avec 26 g de protéines par scoop</li>
+        ],   
     },
     {
         id : 10,
@@ -124,7 +158,12 @@ export default [
         price : "389,00", 
         fake_price : "450,00", 
         available : false,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>0 Sucre</li>,
+            <li>45 mg Vitamine C</li>,
+            <li>25 mg Vitamine B12</li>,
+        ],
     },
     {
         id : 11,
@@ -133,7 +172,12 @@ export default [
         price : "949,00", 
         fake_price : "980,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Fort apport calorique :1 250 calories par portion de 334g</li>,
+            <li>Soutien le développement musculaire avec 50 de protéines supérieures-3 g de créatine monohydrate</li>,
+            <li>Numéro 1 au classement des meilleurs gainers sur le site Bodybuilding.com</li>,
+        ],   
     },
     {
         id : 12,
@@ -142,7 +186,12 @@ export default [
         price : "649,00", 
         fake_price : "700,00", 
         available : false,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>73% de protéines =22 g par dose </li>,
+            <li>8.8g acides aminées</li>,
+            <li>8.8g acides aminées</li>,
+        ],      
     },
     {
         id : 13,
@@ -151,7 +200,11 @@ export default [
         price : "249,00", 
         fake_price : "260,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>1200 mg d'huile de poisson par gélule</li>,
+            <li>Protège le Système cardio-vasculaire et nerveux</li>,
+        ],       
     },
     {
         id : 14,
@@ -160,7 +213,10 @@ export default [
         price : "89,00", 
         fake_price : "120,00", 
         available : false,
-        protein : false    
+        protein : false,
+        pointfort : [
+            <li>New without tags.. Size(Men's): S,M,L,XL. Style: Tank Top Stringer Racerback. Material: 100% Cotton. Colors:Black.</li>,
+        ],   
     },
     {
         id : 15,
@@ -169,7 +225,11 @@ export default [
         price : "350,00", 
         fake_price : null, 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Lipo-6 carnitine Carnitine pure Destock les graisses Brûle les graisses Améliore l’énergie Améliore les performances Améliore l’endurance</li>,
+            
+        ],    
     },
     {
         id : 16,
@@ -178,7 +238,10 @@ export default [
         price : "1.149,00", 
         fake_price : "1.200,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Notre célèbre formule se compose de 74% de protéines pures dérivées du lactosérum, qui est également considérée comme une excellente source d’acides aminés essentiels. Les protéines contribuent à la croissance et au maintien de la masse musculaire et au maintien des os normaux.</li>,
+        ],       
     },
     {
         id : 17,
@@ -187,7 +250,11 @@ export default [
         price : "779,00", 
         fake_price : "820,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>25 g de Protéines, 5.5 g de BCAA, plus de 4 g de Glutamine + enzymes digestives</li>,
+            
+        ],        
     },
     {
         id : 18,
@@ -196,7 +263,11 @@ export default [
         price : "299,00", 
         fake_price : "340,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Glutamine Micronisée Ultra Pure Supplément idéal pour améliorer vos performances et votre récupération</li>,
+            
+        ],     
     },
     {
         id : 19,
@@ -205,7 +276,13 @@ export default [
         price : "400,00", 
         fake_price :null, 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>0 Sucre</li>,
+            <li>45 mg Vitamine C</li>,
+            <li>25 mg Vitamine B12</li>,
+            
+        ],    
     },
     {
         id : 20,
@@ -214,7 +291,11 @@ export default [
         price : "349,00", 
         fake_price :"400,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Double action de la GH : anabolisante et anti-catabolique2 : 1 ratio de arginine – Ornithine pour booster vos hormones</li>,
+            
+        ],     
     },
     {
         id : 21,
@@ -223,7 +304,10 @@ export default [
         price : "250,00", 
         fake_price :null, 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Pour les personnes à la recherche d’un comprimé multivitaminé complet à raison d’un par jour</li>,
+        ],     
     },
     {
         id : 22,
@@ -232,6 +316,9 @@ export default [
         price : "299,00", 
         fake_price :"350,00", 
         available : true,
-        protein : true    
+        protein : true,
+        pointfort : [
+            <li>Ashwagandha 450mg – 90 Capsules est une plante couramment utilisée dans la médecine ayurvédique pratiquée en Inde, qui repose sur une utilisation traditionnelle des plantes.</li>, 
+        ],     
     },
 ]

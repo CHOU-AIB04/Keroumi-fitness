@@ -7,6 +7,12 @@ import { useContext } from 'react';
 import { shareProductDetails } from '../../../Contexts/ProductDetails';
 import { useNavigate } from 'react-router-dom';
 const StorePage = ({onload}) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      onload && onload();
+    };
+    fetchData();
+}, []);
   let navigate = useNavigate()
   let [itemsdisplay, setitemsdisplay] = useState({
     filteritemgrid : "grid-cols-2",
@@ -20,12 +26,6 @@ const StorePage = ({onload}) => {
     filter: null
   })
   let [filter,setfilter] = useState(Data)
-    useEffect(() => {
-        const fetchData = async () => {
-          onload && onload();
-        };
-        fetchData();
-    }, []);
   let protein_count = null
   let debardeur_count = null
   let protein_product = Data.filter(function(e){

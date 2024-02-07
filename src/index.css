@@ -13,7 +13,6 @@ html {
 }
 
 body {
-  background-color: black;
   overflow-x: hidden;
 }
 .sh {
@@ -291,4 +290,8 @@ body {
     height: 100%;
     border-radius: 0%;
   }
+}
+.second_product{
+  border-bottom: 2px solid gray;
+
 }

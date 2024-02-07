@@ -9,7 +9,7 @@ const StoreFooter = () => {
     }
     let {scroll} = useContext(HideNav)
   return (
-    <footer className='w-full relative top-[450px] mt-20 h-[600px] sh'>
+    <footer className='w-full relative top-[480px] mt-20 h-[600px] sh'>
         <section className='w-full small_tablet:h-[70%] h-auto storecolor grid grid-cols-1 tablet:grid-cols-4 small_tablet:grid-cols-2 gap-10 tablet:gap-2 place-items-center pl-2 pb-3 small_tablet:pb-0'>
             <nav className='w-full h-full tablet:h-2/3 relative pl-9 space-y-4 flex flex-col items-center tablet:items-start border-b border-gray-400 small_tablet:border-none pb-2 small_tablet:pb-0'>
                 <div className='flex justify-between mr-2 w-[200px]'>

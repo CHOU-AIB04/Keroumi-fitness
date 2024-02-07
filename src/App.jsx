@@ -11,6 +11,8 @@ import Alter from "./Compenents/Alter-preloader/Alter";
 import { useEffect } from "react";
 import { shareProductDetails } from "./Contexts/ProductDetails";
 import Effect from "./Compenents/Move_Effect/Effect";
+import Description from "./Compenents/Store_Part/ProductDetail/Description/Description";
+import Comment from "./Compenents/Store_Part/ProductDetail/Comment/Comment";
 const StorePage = lazy(()=>import('./Compenents/Store_Part/Store_Page/StorePage'))
 const Footer = lazy(()=>import('./Compenents/Footer/Footer'))
 const Home = lazy(()=> import('./Compenents/Home/Home'))
@@ -20,7 +22,7 @@ const ProductDetails = lazy(()=> import('./Compenents/Store_Part/ProductDetail/P
 const Card = lazy(()=>import('./Compenents/Store_Part/Card/Card'))
 
 function App() {
-  let [selecteditem , setselecteditem] = useState(null)
+  let [selecteditem , setselecteditem] = useState(1)
   let [isloaded,setisloaded] = useState({
     footer1: false,
     footer2: false,
@@ -29,7 +31,14 @@ function App() {
     storeHeader : false,
     storeFooter: false
   })
+  let storePaths = [
+    "/Keroumi-V1/Protein",
+    "/Keroumi-V1/Protein/Product-details",
+    "/keroumi-V1/Protein/Card",
+    "/Keroumi-V1/Protein/Product-details/Comment"
+  ]
   let location = useLocation()
+  let storepath = storePaths.includes(location.pathname)
   let currentpath = location.pathname
   function handle_click(){
     setshownav(function(prev){
@@ -96,11 +105,12 @@ function App() {
       }
     })
   }
+  document.body.style.backgroundColor = storepath ? "#191918" : "black"
   return (
     <HideNav.Provider value={{ shownav, setshownav, Hidenav,handle_click,scroll}}>
     <shareProductDetails.Provider value={{selecteditem,setselecteditem}}>
         {
-          currentpath === "/Keroumi-V1/Protein/Product-details" || currentpath === "/Keroumi-V1/Protein" || currentpath === "/keroumi-V1/Protein/Card" &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>
+          storepath  &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>
         }
         <Routes>
           <Route path="Keroumi-V1/" element={
@@ -125,9 +135,12 @@ function App() {
           }/>
           <Route path="/Keroumi-V1/Protein/Product-details" element={
             <Suspense fallback={<Alter />}>
-                  <ProductDetails />
+                  <ProductDetails onload={Storeloading}/>
             </Suspense>
-          } />
+          }>
+            <Route path="" element= {<Description />} />
+            <Route path="Comment" element= {<Comment />} />
+          </Route>
           <Route path="/keroumi-V1/Protein/Card" element={
             <Suspense fallback={<Alter />}>
               <Card />
@@ -136,7 +149,7 @@ function App() {
         </Routes>
         <Scroll />
         {
-          currentpath === "/Keroumi-V1/" && isloaded.footer1 ? 
+          currentpath === "/Keroumi-V1/"  && isloaded.footer1 ? 
           <Suspense>
             <Footer footer_responsive ="sm:top-[4100px] top-[2950px] small_tablet:top-[1400px]"/>
           </Suspense> : <></>
@@ -148,13 +161,13 @@ function App() {
           </Suspense> : <></>
         }
         {
-          currentpath === "/Keroumi-V1/About" && isloaded.footer3 ? 
+          currentpath === "/Keroumi-V1/About"  && isloaded.footer3 ? 
           <Suspense>
             <Footer footer_responsive="top-[2100px] small_tablet:top-[500px]"/>
           </Suspense> : <></>
         }
         {
-          currentpath === "/Keroumi-V1/Protein" || currentpath === "/Keroumi-V1/Protein/Product-details" || currentpath === "/keroumi-V1/Protein/Card" && isloaded.storeFooter ?  <StoreFooter /> : <></>
+          storepath && isloaded.storeFooter ?  <StoreFooter /> : <></>
         }
        </shareProductDetails.Provider>
     </HideNav.Provider>
