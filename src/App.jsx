@@ -107,7 +107,7 @@ function App() {
   }
   document.body.style.backgroundColor = storepath ? "#191918" : "black"
   return (
-    <HideNav.Provider value={{ shownav, setshownav, Hidenav,handle_click,scroll}}>
+    <HideNav.Provider value={{ shownav, setshownav, Hidenav,handle_click,scroll,storepath}}>
     <shareProductDetails.Provider value={{selecteditem,setselecteditem}}>
         {
           storepath  &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>

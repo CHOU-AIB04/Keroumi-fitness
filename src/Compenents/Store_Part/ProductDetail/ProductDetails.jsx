@@ -3,8 +3,33 @@ import { useContext,useEffect } from 'react'
 import { shareProductDetails } from '../../../Contexts/ProductDetails'
 import Data from '../Product-Data/Data'
 import { useNavigate,NavLink,Outlet } from 'react-router-dom'
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { useState } from 'react'
 
 const ProductDetails = ({onload}) => {
+  let navigate = useNavigate()
+  let {setselecteditem} = useContext(shareProductDetails)
+  let {selecteditem} = useContext(shareProductDetails)
+  let [showslide ,setshowslide] = useState(()=>{
+    if(window.innerWidth >= 1050){
+      return 3
+    }else if (window.innerWidth <= 500){
+      return 1
+    }
+    else{
+      return 2
+    }
+
+  })
+  let settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: showslide,
+    slidesToScroll: 1,
+  };
   useEffect(() => {
     const fetchData = async () => {
       onload && onload();
@@ -13,12 +38,28 @@ const ProductDetails = ({onload}) => {
 }, []);
   let styles = {
     color : "orangered"
-  }
-  let navigate = useNavigate()
-    let {setselecteditem} = useContext(shareProductDetails)
-    let {selecteditem} = useContext(shareProductDetails)
+  } 
+  useEffect(()=>{
+    addEventListener("resize",()=>{
+      if(window.innerWidth >= 1050){
+        setshowslide(3) 
+      }
+      else if (window.innerWidth <= 500){
+        setshowslide(1) 
+      }
+      else if (window.innerWidth >500){
+        setshowslide(2)
+      }
+      else{
+        setshowslide(3) 
+      }
+  
+    })
+  },[showslide])
     let product = Data[selecteditem-1]
     let element = []
+    let additional_product = []
+      // this for statement it's for ramdom num in element array
     for (let i = 0; i < 5; i++) {
       let random = Math.floor(Math.random() * Data.length)
       if (element.includes(random) || random === selecteditem-1) {
@@ -26,6 +67,16 @@ const ProductDetails = ({onload}) => {
           element.push(random)
       }else{
         element.push(random)
+      }
+    }
+      // this for statement it's for ramdom num in additional_product array
+    for (let i = 0; i < 10; i++) {
+      let random = Math.floor(Math.random() * Data.length)
+      if (additional_product.includes(random) || random === selecteditem-1) {
+          random++
+          additional_product.push(random)
+      }else{
+        additional_product.push(random)
       }
     }
     function switch_index(id){
@@ -89,11 +140,49 @@ const ProductDetails = ({onload}) => {
             </div>
             <Outlet />
           </nav>
+              <nav className='w-[87%] h-auto flex justify-center items-center mt-5'>
+                  <div className='w-full h-full'>
+                    <Slider {...settings}>
+                      {
+                        additional_product.map(function(e){
+                          let product = Data[e]
+                          return(
+                          <nav id={product.id} key={product.id} className={`group cursor-pointer transition-all duration-500 hover:scale-95 product_color  pt-4 gap-3 rounded-md w-[300px] h-[470px] relative`}>
+                            <div className='w-[180px] flex-col group-hover:opacity-55 transition-all duration-500 bg-gray-400 h-[180px] rounded-md flex justify-center items-center relative left-1/2 -translate-x-1/2'>
+                              <img src={product.pic} className="rounded-md w-[90%] h-[90%]" alt="product" />
+                              {
+                                product.fake_price ? <p className='bg-orange-500 absolute top-0 right-0 w-12 h-12 rounded-full flex justify-center items-center text-white text-sm'>Promo!</p> : <></>
+                              }
+                            </div>
+                            <div className='flex flex-col items-center gap-3 relative h-1/2 mt-2'>
+                              <h1 className='text-white font-bold text-sm uppercase text-center w-[90%] transition-colors duration-500 cursor-pointer hover:text-orange-500' onClick={()=>{setselecteditem(product.id), window.scrollTo({top:400,behavior:"smooth"})}}>{product.tittle}</h1>
+                                <div className='flex gap-1 items-center'>
+                                  <i className="bi bi-star-fill text-blue-400"></i>
+                                  <i className="bi bi-star-fill text-blue-400"></i>
+                                  <i className="bi bi-star-fill text-blue-400"></i>
+                                  <i className="bi bi-star-fill text-blue-400"></i>
+                                  <i className="bi bi-star-fill text-blue-400"></i>
+                                </div>
+                                <div className='flex gap-4 items-center'>
+                                  <p className='text-zinc-500 test-sm'>{product.price} MAD</p>
+                                  {product.fake_price ? <p className='text-zinc-500 line-through test-sm'>{product.fake_price} MAD</p> : <></>}
+                                </div>
+                                {
+                                  product.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3'>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>{setselecteditem(product.id), window.scrollTo({top:400,behavior:"smooth"})}}>lire la suite</button>
+                                }
+                            </div>
+                          </nav>
+                          )
+                        })
+                      }                        
+                    </Slider>
+                </div>
+          </nav>
         </section>
                            {/* End the product details section */}
 
         <section className=' h-auto w-full flex flex-col items-center gap-5 justify-between'>
-              <nav className='bg-zinc-700 mt-2 border-2 border-gray-400  w-full store:w-[350px]  h-44 rounded-md pl-9 flex flex-col justify-evenly'>
+              <nav className='bg-zinc-800 mt-2 border-2 border-gray-400  w-full store:w-[350px]  h-44 rounded-md pl-9 flex flex-col justify-evenly'>
                 <h1 className='text-white text-[30px] font-bold'>Cart</h1>
                 <p className='text-white '>Votre Panier est vide</p>
               </nav>
