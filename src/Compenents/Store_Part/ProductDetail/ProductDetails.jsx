@@ -69,16 +69,22 @@ const ProductDetails = ({onload}) => {
         element.push(random)
       }
     }
+    console.log(element)
       // this for statement it's for ramdom num in additional_product array
-    for (let i = 0; i < 10; i++) {
+    for (let i = 1; i < 11; i++) {
       let random = Math.floor(Math.random() * Data.length)
-      if (additional_product.includes(random) || random === selecteditem-1) {
+      if (additional_product.includes(random)) {
           random++
-          additional_product.push(random)
+          if (additional_product.includes(random)){
+            random +=1
+            additional_product.push(random)
+          }
+        
       }else{
         additional_product.push(random)
       }
     }
+
     function switch_index(id){
       setselecteditem(id)
       navigate("/Keroumi-V1/Protein/Product-details")
