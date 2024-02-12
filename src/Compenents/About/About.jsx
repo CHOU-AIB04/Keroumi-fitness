@@ -14,7 +14,7 @@ const About = ({ onload }) => {
   }, []);
   return (
     <>
-      <section className="flex flex-col items-center">
+      <section className="flex flex-col items-center mt-28">
         <CoachInfo />
       </section>
       <section className="relative top-[600px]  small_tablet:top-7 flex flex-col items-center">

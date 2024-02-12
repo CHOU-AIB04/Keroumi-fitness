@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export const Local = () => {
   return (
-    <section className='mt-10 relative left-1/2 flex justify-between items-center -translate-x-1/2 w-[95%] flex-col tablet:flex-row gap-12 tablet:gap-0 md:gap-12'>
+    <section className='mt-40 relative left-1/2 flex justify-between items-center -translate-x-1/2 w-[95%] flex-col tablet:flex-row gap-12 tablet:gap-0 md:gap-12'>
     <article className='w-[90%] tablet:w-[60%]'>
     <motion.iframe initial={{width:"0%"}} transition={{duration:1}} whileInView={{width:"100%"}} viewport={{once:true}} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3326.3303094886437!2d-7.653383524987496!3d33.518796745710716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda62d6dd244cb17%3A0x28801a96349d1b60!2sKeroumi%20Fitness!5e0!3m2!1sen!2sma!4v1706776451498!5m2!1sen!2sma" 
         className='h-[400px] sm:h-[650px] rounded-xl mapsh' 

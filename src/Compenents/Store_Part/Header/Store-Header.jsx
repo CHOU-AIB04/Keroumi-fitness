@@ -3,7 +3,9 @@ import logo from '../../../pictures/logo_keroumi.png'
 import { Link ,NavLink,useNavigate} from "react-router-dom";
 import { HideNav } from "../../../Contexts/Hide-nav-context";
 import Background from "../StoreBackground/Background";
+import { shareProductDetails } from "../../../Contexts/ProductDetails";
  const StoreHeader =()=>{
+  let {card} = useContext(shareProductDetails)
   let navigate = useNavigate()
   let [position ,setposition] = useState("relative")
   let {Hidenav} = useContext(HideNav)
@@ -57,7 +59,7 @@ import Background from "../StoreBackground/Background";
         </nav>
         <div className="flex pl-2 absolute top-1/2 -translate-y-1/2 right-[40%] sm:right-[35%]  store:right-[19%]" onClick={CardConponent}>
             <i className="bi bi-cart text-white text-[30px] sm:text-[35px] transition-colors duration-500 hover:text-orange-500 cursor-pointer"></i>
-            <p className="bg-orange-500 rounded-full self-start w-6 text-center relative right-3">2</p>
+            <p className="bg-orange-500 rounded-full self-start w-6 text-center relative right-3">{card.length}</p>
         </div>
         <i className={`${shownav.icon} text-white text-[30px] cursor-pointer absolute top-1/2 -translate-y-1/2 right-3 visible store:invisible transition-colors duration-500 hover:text-orange-500`} onClick={handle_click}></i>
       </section>

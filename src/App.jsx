@@ -1,5 +1,5 @@
 import { useState,lazy,Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, json } from 'react-router-dom';
 import Header from "./Compenents/Header/Header";
 import { HideNav } from "./Contexts/Hide-nav-context";
 import { Loading } from "./Compenents/Preloading/Loading";
@@ -22,7 +22,22 @@ const ProductDetails = lazy(()=> import('./Compenents/Store_Part/ProductDetail/P
 const Card = lazy(()=>import('./Compenents/Store_Part/Card/Card'))
 
 function App() {
-  let [selecteditem , setselecteditem] = useState(1)
+            //  this state it's for the card conponent 
+  let [card,setcard] = useState([])
+
+  // this useeffect it's for get the cardarray from the local storage and set it in usestate
+  useEffect(()=>{
+    let storeddata = localStorage.getItem("arr")
+    if (storeddata){
+      setcard(JSON.parse(storeddata))
+    }
+  },[])
+  console.log(card)
+                 // this usestate it takes the current value that exist in local storage 
+  let [selecteditem , setselecteditem] = useState(()=>{
+    let currentproduct = window.localStorage.getItem("currentproduct")
+    return currentproduct ? parseInt(currentproduct) : 1
+  })
   let [isloaded,setisloaded] = useState({
     footer1: false,
     footer2: false,
@@ -108,7 +123,7 @@ function App() {
   document.body.style.backgroundColor = storepath ? "#191918" : "black"
   return (
     <HideNav.Provider value={{ shownav, setshownav, Hidenav,handle_click,scroll,storepath}}>
-    <shareProductDetails.Provider value={{selecteditem,setselecteditem}}>
+    <shareProductDetails.Provider value={{selecteditem,setselecteditem,card,setcard}}>
         {
           storepath  &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>
         }

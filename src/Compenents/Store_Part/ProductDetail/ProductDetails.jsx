@@ -69,7 +69,6 @@ const ProductDetails = ({onload}) => {
         element.push(random)
       }
     }
-    console.log(element)
       // this for statement it's for ramdom num in additional_product array
     for (let i = 1; i < 11; i++) {
       let random = Math.floor(Math.random() * Data.length)
@@ -84,7 +83,7 @@ const ProductDetails = ({onload}) => {
         additional_product.push(random)
       }
     }
-
+    // this function it's for switching the current product in the product details
     function switch_index(id){
       setselecteditem(id)
       navigate("/Keroumi-V1/Protein/Product-details")
@@ -92,12 +91,13 @@ const ProductDetails = ({onload}) => {
         top:500,
         behavior:"smooth"
       })
+      window.localStorage.setItem("currentproduct",id)
     }
   return (
     <article className='w-full h-auto storecolor relative top-[423px] store:grid flex flex-col items-center  store:grid-cols-3 gap-56 store:gap-0 left-1/2 -translate-x-1/2 place-content-center'>
                         
                          {/* begin the product section  */}
-        
+                         
         <section className='col-span-2 h-auto w-full flex flex-col items-center gap-10'>
           <nav className='h-auto store:pl-3 pl-2 pt-3 w-full flex-col md:flex-row flex  gap-6 items-center'>
             <div className='h-[350px] w-[350px] md:w-[800px] md:h-[450px] flex justify-center items-center rounded-xl overflow-hidden relative'>
@@ -161,7 +161,7 @@ const ProductDetails = ({onload}) => {
                               }
                             </div>
                             <div className='flex flex-col items-center gap-3 relative h-1/2 mt-2'>
-                              <h1 className='text-white font-bold text-sm uppercase text-center w-[90%] transition-colors duration-500 cursor-pointer hover:text-orange-500' onClick={()=>{setselecteditem(product.id), window.scrollTo({top:400,behavior:"smooth"})}}>{product.tittle}</h1>
+                              <h1 className='text-white font-bold text-sm uppercase text-center w-[90%] transition-colors duration-500 cursor-pointer hover:text-orange-500' onClick={()=>switch_index(product.id)}>{product.tittle}</h1>
                                 <div className='flex gap-1 items-center'>
                                   <i className="bi bi-star-fill text-blue-400"></i>
                                   <i className="bi bi-star-fill text-blue-400"></i>
@@ -174,7 +174,7 @@ const ProductDetails = ({onload}) => {
                                   {product.fake_price ? <p className='text-zinc-500 line-through test-sm'>{product.fake_price} MAD</p> : <></>}
                                 </div>
                                 {
-                                  product.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3'>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>{setselecteditem(product.id), window.scrollTo({top:400,behavior:"smooth"})}}>lire la suite</button>
+                                  product.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3'>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>switch_index(product.id)}>lire la suite</button>
                                 }
                             </div>
                           </nav>

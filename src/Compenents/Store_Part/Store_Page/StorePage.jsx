@@ -5,7 +5,7 @@ import debardeur_pic from "../Store-part-pic/debardeeur-part.jpg"
 import { useState } from 'react';
 import { useContext } from 'react';
 import { shareProductDetails } from '../../../Contexts/ProductDetails';
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 const StorePage = ({onload}) => {
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +20,8 @@ const StorePage = ({onload}) => {
     productgrid : "product:grid-cols-2 store:grid-cols-3",
     productproperty : "w-[330px]"
   })
+  let {card} = useContext(shareProductDetails)
+  let {setcard} = useContext(shareProductDetails)
   let {setselecteditem} = useContext(shareProductDetails)
   let [system,setsystem] = useState({
     sys :1,
@@ -40,6 +42,7 @@ const StorePage = ({onload}) => {
       return e
     }
   })
+  // this function it's for switching the current product in the product details
   function shareindex(id){
     setselecteditem(id)
     navigate("/Keroumi-V1/Protein/Product-details")
@@ -47,10 +50,17 @@ const StorePage = ({onload}) => {
       top:450,
       behavior:"smooth"
     })
+    window.localStorage.setItem("currentproduct",id)
+  }
+  // this function it's for adding a new product to the card component and add it in local storage eitheir
+  function Additem(id){
+    let array = [...card,id]
+    window.localStorage.setItem("arr",JSON.stringify(array))
+    setcard(array)
   }
   let product = filter.map(function(e){
     return(
-      <nav id={e.id} key={e.id} className={`group cursor-pointer transition-all duration-500 hover:scale-95 product_color flex flex-col items-center pt-4 gap-3 rounded-md ${itemsdisplay.productproperty} h-[470px] relative`} onClick={()=>shareindex(e.id)}>
+      <nav id={e.id} key={e.id} className={`group cursor-pointer transition-all duration-500 hover:scale-95 product_color flex flex-col items-center pt-4 gap-3 rounded-md ${itemsdisplay.productproperty} h-[470px] relative`}>
         <div className='w-[250px] flex-col group-hover:opacity-55 transition-all duration-500 bg-gray-400 h-[250px] rounded-md flex justify-center items-center relative'>
           <img src={e.pic} className="rounded-md w-4/5 h-4/5" alt="product" />
           {
@@ -58,7 +68,7 @@ const StorePage = ({onload}) => {
           }
         </div>
        <div className='flex flex-col items-center gap-3 relative h-1/2'>
-        <h1 className='text-white font-bold uppercase text-center w-[90%] transition-colors duration-500 cursor-pointer hover:text-orange-500'>{e.tittle}</h1>
+        <h1 className='text-white font-bold uppercase text-center w-[90%] transition-colors duration-500 cursor-pointer hover:text-orange-500' onClick={()=>shareindex(e.id)}>{e.tittle}</h1>
           <div className='flex gap-1 items-center'>
             <i className="bi bi-star-fill text-blue-400"></i>
             <i className="bi bi-star-fill text-blue-400"></i>
@@ -71,7 +81,7 @@ const StorePage = ({onload}) => {
             {e.fake_price ? <p className='text-zinc-500 line-through test-sm'>{e.fake_price} MAD</p> : <></>}
           </div>
           {
-            e.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3'>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>shareindex(e.id)}>lire la suite</button>
+            e.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3' onClick={()=>Additem(e.id)}>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>shareindex(e.id)}>lire la suite</button>
           }
        </div>
       </nav>
@@ -109,9 +119,6 @@ const StorePage = ({onload}) => {
         ...prev,
         filteritemgrid : "grid-cols-1",
         filteritemproperty : "w-full items-start pl-7",
-        // productgrid : "grid-cols-1",
-        // productproperty : "w-full"
-
       }
     })
   }

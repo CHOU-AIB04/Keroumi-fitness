@@ -16,7 +16,7 @@ const Header = () => {
     }
     return (
     <>
-    <header className='relative sh h-28 rounded-md z-40'>
+    <header className='fixed w-full top-0 bg-black sh h-28 rounded-md z-40'>
         <Link to="Keroumi-V1/">
             <motion.div initial={{opacity:0}} transition={{duration:1}} whileInView={{opacity:1}} viewport={{once:true}} className='w-[140px] absolute top-1/2 -translate-y-1/2  sm:w-64 small_tablet:w-80 left-5 small_tablet:left-14'>
                 <img src={logo} alt="picture" />

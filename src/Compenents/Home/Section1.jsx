@@ -5,7 +5,7 @@ import peace3 from "../../pictures/peace3.png"
 import { motion } from "framer-motion";
 export const Section1 = () => {
   return (
-    <section className="h-[450px] w-full flex-col small_tablet:flex-row flex justify-around items-center">
+    <section className="h-[450px] mt-16 w-full flex-col small_tablet:flex-row flex justify-around items-center">
       <motion.div  viewport={{once:true}} initial={{left:"150px"}} transition={{duration:1}} whileInView={{left:"0px"}} className="small_tablet:flex flex-col gap-2 relative hidden">
         <i className="bi bi-facebook text-white text-xl cursor-pointer transition-all duration-500 hover:text-orange-600"></i>
         <i className="bi bi-twitter text-white text-xl cursor-pointer transition-all duration-500 hover:text-orange-600"></i>

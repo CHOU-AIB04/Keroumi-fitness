@@ -7,9 +7,23 @@ const Description = () => {
     let {selecteditem} = useContext(shareProductDetails)
     let product = Data[selecteditem-1]
   return (
-    <ul className='mt-10 text-white font-bold flex flex-col gap-3 ml-7 w-[70%]'>
-        {product.pointfort}
-    </ul>
+    <>
+    <section className='mt-10 ml-7 w-[70%] flex flex-col gap-9 pb-4'>
+      <div className='flex flex-col gap-5'>
+        <h1 className='text-white font-bold text-[25px]'>Product Description :</h1>
+        <p className='text-white'>{product.description}</p>
+      </div>
+      <div className='flex flex-col gap-5'>
+        <h1 className='text-white font-bold text-[25px]'>strong point :</h1>
+        <ul className='text-white font-bold flex flex-col gap-3'>
+              {product.pointfort}
+          </ul>
+      </div>
+    </section>
+    
+    
+    </>
+    
   )
 }
 
