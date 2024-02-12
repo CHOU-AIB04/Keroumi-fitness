@@ -32,7 +32,6 @@ function App() {
       setcard(JSON.parse(storeddata))
     }
   },[])
-  console.log(card)
                  // this usestate it takes the current value that exist in local storage 
   let [selecteditem , setselecteditem] = useState(()=>{
     let currentproduct = window.localStorage.getItem("currentproduct")

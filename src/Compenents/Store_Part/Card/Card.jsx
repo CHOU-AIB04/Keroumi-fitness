@@ -8,6 +8,7 @@ import pic_test from '../Store-part-pic/Carnitine.jpeg'
 const Card = () => {
   let navigate = useNavigate()
   let {card} = useContext(shareProductDetails)
+  let {setcard} = useContext(shareProductDetails)
 let [visible_table,setvisible_table] = useState(()=>{
   let big_one = ""
   let medium_one = ""
@@ -46,6 +47,16 @@ useEffect(()=>{
     }
   })
 },[window.innerWidth])
+// this function it's for delete item from the local storage 
+
+function RemoveItem(id){
+ let index = id-1
+ let array = JSON.parse(window.localStorage.getItem("arr"))
+ let newarray = array.filter(element => element !== index);
+ window.localStorage.setItem("arr",JSON.stringify(newarray))
+ setcard(newarray)
+
+}
   return (
     <section className='w-full h-auto storecolor top-[423px] relative flex flex-col items-center mt-8'>
       {/* table in the large screen */}
@@ -66,7 +77,7 @@ useEffect(()=>{
               return(
                 <tr className='text-[20px] text-center text-white'>
                 <td className='border-2 w-[100px] border-zinc-800 h-[90px]'>
-                  <i className="bi bi-x-circle-fill text-[30px] cursor-pointer"></i>
+                  <i className="bi bi-x-circle-fill text-[30px] cursor-pointer" onClick={()=>RemoveItem(product.id)}></i>
                 </td>
                 <td className=' h-[90px] w-[120px] flex justify-center items-center'>
                   <img src={product.pic} alt="pic" className='w-[70%] h-[90%] rounded-md object-cover' />
