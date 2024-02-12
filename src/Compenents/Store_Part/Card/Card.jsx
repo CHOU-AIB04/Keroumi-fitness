@@ -77,7 +77,7 @@ function RemoveItem(id){
               return(
                 <tr className='text-[20px] text-center text-white'>
                 <td className='border-2 w-[100px] border-zinc-800 h-[90px]'>
-                  <i className="bi bi-x-circle-fill text-[30px] cursor-pointer" onClick={()=>RemoveItem(product.id)}></i>
+                  <i className="bi bi-x-circle-fill text-[30px] cursor-pointer transition-colors duration-500 hover:text-orange-500" onClick={()=>RemoveItem(product.id)}></i>
                 </td>
                 <td className=' h-[90px] w-[120px] flex justify-center items-center'>
                   <img src={product.pic} alt="pic" className='w-[70%] h-[90%] rounded-md object-cover' />
@@ -106,7 +106,7 @@ function RemoveItem(id){
           </tr>
         </table> 
         :<>
-          <div className='w-full card_color h-12 pt-2 pl-5 flex items-center border-t-2 border-blue-500'> 
+          <div className='w-[90%] card_color h-12 pt-2 pl-5 flex items-center border-t-4 border-blue-500'> 
             <i className="bi bi-window text-white"></i>
             <div className='flex items-center gap-5 ml-7 text-[18px] sm:text-[20px]'>
               <h1 className='text-white  font-bold'>Votre Panier est vide</h1>
@@ -114,7 +114,7 @@ function RemoveItem(id){
             </div>
              
           </div>
-          <button className='w-44 sm:w-48 h-12 rounded-xl text-sm sm:text-md bg-orange-500 text-white font-bold self-start mt-5 ml-5 sm:ml-10' onClick={()=> navigate("/Keroumi-V1/Protein")}>retourne a la boutique</button>
+          <button className='w-44 sm:w-48 h-12 rounded-xl text-sm sm:text-md bg-orange-500 text-white font-bold self-start mt-6 ml-6 sm:ml-16 transition-colors duration-500 hover:bg-white sh hover:text-orange-500' onClick={()=> navigate("/Keroumi-V1/Protein")}>retourne a la boutique</button>
         </> 
         
         
@@ -131,7 +131,7 @@ function RemoveItem(id){
                  <>
                   <tr className='text-center border-2 h-16 border-zinc-800'>
                     <td>
-                      <i className="bi bi-x-circle-fill text-[30px] cursor-pointer text-white"></i>
+                      <i className="bi bi-x-circle-fill text-[30px] cursor-pointer text-white transition-colors duration-500 hover:text-orange-500" onClick={()=>RemoveItem(product.id)}></i>
                     </td>
                   </tr>
                   <tr className='h-16 border-2 border-zinc-800'>
