@@ -59,11 +59,12 @@ function RemoveItem(id){
 }
   return (
     <section className='w-full h-auto storecolor top-[423px] relative flex flex-col items-center mt-8'>
-      {/* table in the large screen */}
+
       {/* check if the card state is not empty */}
 
       {
         card.length > 0 ?
+        /* table in the large screen */
         <table className={`w-[95%] ${visible_table.big_table}`}>
           <tr className='text-[19px] text-center text-white card_color'>
             <td className='border-2 border-zinc-800 w-[50%] h-[60px] uppercase' colSpan={3}>Produit</td>

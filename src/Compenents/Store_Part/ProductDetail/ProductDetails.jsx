@@ -7,9 +7,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from 'react'
+import pic from "../Store-part-pic/Carnitine.jpeg"
 
 const ProductDetails = ({onload}) => {
   let navigate = useNavigate()
+  // the next usecontext it's for card component product
+  let {card} = useContext(shareProductDetails)
+  let {setcard} = useContext(shareProductDetails)
   let {setselecteditem} = useContext(shareProductDetails)
   let {selecteditem} = useContext(shareProductDetails)
   let [showslide ,setshowslide] = useState(()=>{
@@ -93,6 +97,17 @@ const ProductDetails = ({onload}) => {
       })
       window.localStorage.setItem("currentproduct",id)
     }
+  
+// this function it's for delete item from the local storage 
+
+function RemoveItem(id){
+  let index = id-1
+  let array = JSON.parse(window.localStorage.getItem("arr"))
+  let newarray = array.filter(element => element !== index);
+  window.localStorage.setItem("arr",JSON.stringify(newarray))
+  setcard(newarray)
+ 
+ }
   return (
     <article className='w-full h-auto storecolor relative top-[423px] store:grid flex flex-col items-center  store:grid-cols-3 gap-56 store:gap-0 left-1/2 -translate-x-1/2 place-content-center'>
                         
@@ -188,9 +203,36 @@ const ProductDetails = ({onload}) => {
                            {/* End the product details section */}
 
         <section className=' h-auto w-full flex flex-col items-center gap-5 justify-between'>
-              <nav className='bg-zinc-800 mt-2 border-2 border-gray-400  w-full store:w-[350px]  h-44 rounded-md pl-9 flex flex-col justify-evenly'>
-                <h1 className='text-white text-[30px] font-bold'>Cart</h1>
-                <p className='text-white '>Votre Panier est vide</p>
+              <nav className='bg-zinc-800 mt-2 border-2 border-gray-400  w-full store:w-[380px] min-h-44 h-auto rounded-md pl-9 flex flex-col justify-evenly'>
+                { card.length > 0 ? 
+                  <>
+                    <h1 className='text-white font-bold text-[30px]'>Cart</h1>
+                    <div className='space-y-5 pb-4 mt-4'>
+                    {
+                      card.map(function(e){
+                        let product = Data[e]
+                        return(
+                          <nav className='w-full h-20 flex items-center gap-4' key={product.id}>
+                            <div className='h-full w-24 rounded-md overflow-hidden relative'>
+                              <img src={product.pic} alt="picture" className='w-full h-full object-cover' />
+                              <i className="bi bi-x absolute -top-3 -left-1 text-orange-500 text-[30px] transition-colors duration-500 hover:text-black cursor-pointer" onClick={()=>RemoveItem(product.id)}></i>
+                            </div>
+                            <div className='text-white fotn-bold w-2/3 space-y-2'>
+                              <h1 className='text-[14px]'>{product.tittle}</h1>
+                              <p className='text-[17px] text-gray-500'>1 * {product.price} MAD</p>
+                            </div>
+                          </nav>
+                        )
+                      })
+                    }
+                    </div>
+                  </> 
+                  :
+                  <>
+                  <h1 className='text-white text-[30px] font-bold'>Cart</h1>
+                  <p className='text-white '>Votre Panier est vide</p>
+                  </>
+                }
               </nav>
               <nav className=' w-full store:w-[350px] h-auto rounded-md flex flex-col items-center gap-2'>
                   <h1 className='text-white text-[30px] font-bold  '>Product : </h1>

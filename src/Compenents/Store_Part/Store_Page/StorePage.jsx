@@ -7,6 +7,8 @@ import { useContext } from 'react';
 import { shareProductDetails } from '../../../Contexts/ProductDetails';
 import { json, useNavigate } from 'react-router-dom';
 const StorePage = ({onload}) => {
+  // this usestate it's for take the localstorage array 
+  let [localarray,setlocalarray] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       onload && onload();
@@ -54,10 +56,11 @@ const StorePage = ({onload}) => {
   }
   // this function it's for adding a new product to the card component and add it in local storage eitheir
   function Additem(id){
-    let array = [...card,id]
+    let array = [...card,id-1]
     window.localStorage.setItem("arr",JSON.stringify(array))
     setcard(array)
   }
+
   let product = filter.map(function(e){
     return(
       <nav id={e.id} key={e.id} className={`group cursor-pointer transition-all duration-500 hover:scale-95 product_color flex flex-col items-center pt-4 gap-3 rounded-md ${itemsdisplay.productproperty} h-[470px] relative`}>
