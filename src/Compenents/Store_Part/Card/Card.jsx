@@ -77,7 +77,7 @@ function RemoveItem(id){
   setpromocode(newtot)
   toast.success("Removed from the Card")
 }
-// this function it's for applying the promo code
+// this function it's for applying the promo code for table 1
 let {promocode} = useContext(shareProductDetails)
 let {setpromocode} = useContext(shareProductDetails)
 function Promocode(){
@@ -93,8 +93,21 @@ function Promocode(){
     toast.error("Invalid Promo Code")
   }
   }
-  
-
+}
+// this function it's for applying the promo code for table 2
+function Promocode2(){
+  let inputvalue = document.getElementById("Codeinput2").value
+  if (inputvalue === "")  {
+    toast.error("Promo Code input is empty")
+  }else{
+    if (Promo.includes(inputvalue)) {
+    let promotion = cardtot - (cardtot*0.1)
+    setpromocode(promotion)
+    toast.success("promo Code Applied")
+  }else{
+    toast.error("Invalid Promo Code")
+  }
+  }
 }
   return (
     <section className='w-full h-auto storecolor top-[423px] relative flex flex-col items-center mt-8'>
@@ -212,8 +225,8 @@ function Promocode(){
              }
               <tr className='border-2 border-zinc-800'>
                 <td className='flex flex-col items-center gap-2 border-zinc-800'>
-                  <input type="text" className='w-[90%] h-12 rounded-2xl product_color text-white pl-3 focus:outline-none' placeholder='Code Promo'/>
-                  <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white font-bold transition-colors duration-500 hover:bg-white hover:text-orange-500 sh'>Appliquer le code Promo</button>
+                  <input type="text" className='w-[90%] h-12 rounded-2xl product_color text-white pl-3 focus:outline-none' placeholder='Code Promo' id='Codeinput2'/>
+                  <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white font-bold transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={Promocode2}>Appliquer le code Promo</button>
                   <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white font-bold transition-colors duration-500 hover:bg-white hover:text-orange-500 sh'>Mettre A Jour le Panier</button>
                 </td>
               </tr>
