@@ -55,6 +55,7 @@ const StorePage = ({onload}) => {
     window.localStorage.setItem("currentproduct",id)
   }
   let {setcardtot} = useContext(shareProductDetails)
+  let {setpromocode} = useContext(shareProductDetails)
   // this function it's for adding a new product to the card component and add it in local storage eitheir
   function Additem(id){
       //  the first item from L.s . for get the an array to push in this array new product and display it card component
@@ -74,6 +75,7 @@ const StorePage = ({onload}) => {
       let tot = totlocal + productprice
       window.localStorage.setItem("total",tot)
       setcardtot(tot)
+      setpromocode(tot)
     
     }
   }

@@ -101,12 +101,14 @@ const ProductDetails = ({onload}) => {
 // this shared usestate from the app (cardtot,setcardt) it's for taking the price sum from the L.S
 let {cardtot} = useContext(shareProductDetails);
 let {setcardtot} = useContext(shareProductDetails);
+let {setpromocode} = useContext(shareProductDetails)
 // this function it's for delete item from the local storage and update the total item in the L.S
 function RemoveItem(id){
   let index = id-1
   let localtot = +window.localStorage.getItem("total")
   let productprice = Data[id-1].price
   let newtot = localtot-productprice
+  let promotot = newtot - (newtot*0.1)
   let array = JSON.parse(window.localStorage.getItem("arr"))
   let newarray = array.filter(element => element !== index);
   window.localStorage.setItem("arr",JSON.stringify(newarray))
@@ -114,6 +116,7 @@ function RemoveItem(id){
   window.localStorage.setItem("total",newtot)
   setcardtot(newtot)
   toast.success("Removed from the Card")
+  setpromocode(newtot)
  }
 
 // this function it's for adding a new product to the card component and add it in local storage eitheir
@@ -135,6 +138,7 @@ if(exist){
   let tot = totlocal + productprice
   window.localStorage.setItem("total",tot)
   setcardtot(tot)
+  setpromocode(tot)
 }
 }
 // this usestate it's for showwing description component or comment component instead of using usenavigate

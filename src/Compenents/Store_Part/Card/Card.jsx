@@ -67,12 +67,14 @@ function RemoveItem(id){
   let localtot = +window.localStorage.getItem("total")
   let productprice = Data[id-1].price
   let newtot = localtot-productprice
+  let promotot = newtot - (newtot*0.1)
   let array = JSON.parse(window.localStorage.getItem("arr"))
   let newarray = array.filter(element => element !== index);
   window.localStorage.setItem("arr",JSON.stringify(newarray))
   setcard(newarray)
   window.localStorage.setItem("total",newtot)
   setcardtot(newtot)
+  setpromocode(newtot)
   toast.success("Removed from the Card")
 }
 // this function it's for applying the promo code
