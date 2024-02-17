@@ -247,7 +247,7 @@ function Promocode2(){
                   <h3>{promocode} Mad</h3>
                 </div>
               </div>
-              <button className='bg-orange-500 w-full h-12 rounded-2xl text-white font-bold mt-5 transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={()=> navigate("/Keroumi-V1/Store/Checkout")}>Valider La commande</button>
+              <button className='bg-orange-500 w-full h-12 rounded-2xl text-white font-bold mt-5 transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={()=> {navigate("/Keroumi-V1/Store/Checkout"),scrollTo({top:450,behavior:"smooth"})}}>Valider La commande</button>
         </nav> 
         : "" 
       } 
