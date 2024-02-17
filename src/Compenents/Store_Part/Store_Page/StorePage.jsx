@@ -6,9 +6,9 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { shareProductDetails } from '../../../Contexts/ProductDetails';
 import { json, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 const StorePage = ({onload}) => {
   // this usestate it's for take the localstorage array 
-  let [localarray,setlocalarray] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       onload && onload();
@@ -47,18 +47,35 @@ const StorePage = ({onload}) => {
   // this function it's for switching the current product in the product details
   function shareindex(id){
     setselecteditem(id)
-    navigate("/Keroumi-V1/Protein/Product-details")
+    navigate("/Keroumi-V1/Store/Product-details")
     window.scrollTo({
       top:450,
       behavior:"smooth"
     })
     window.localStorage.setItem("currentproduct",id)
   }
+  let {setcardtot} = useContext(shareProductDetails)
   // this function it's for adding a new product to the card component and add it in local storage eitheir
   function Additem(id){
-    let array = [...card,id-1]
-    window.localStorage.setItem("arr",JSON.stringify(array))
-    setcard(array)
+      //  the first item from L.s . for get the an array to push in this array new product and display it card component
+    let localarray = localStorage.getItem("arr")
+        // this one it's for take this item from L.S and add on it the product price to display it in the card component
+    let totlocal = +localStorage.getItem("total")
+    let exist = localarray.includes(id-1)
+    let productprice = Data[id-1].price
+    if(exist){
+      toast.error("Product Already exist")
+      return
+    }else{
+      let array = [...card,id-1]
+      toast.success("Added to Card")
+      window.localStorage.setItem("arr",JSON.stringify(array))
+      setcard(array)
+      let tot = totlocal + productprice
+      window.localStorage.setItem("total",tot)
+      setcardtot(tot)
+    
+    }
   }
 
   let product = filter.map(function(e){
@@ -84,7 +101,7 @@ const StorePage = ({onload}) => {
             {e.fake_price ? <p className='text-zinc-500 line-through test-sm'>{e.fake_price} MAD</p> : <></>}
           </div>
           {
-            e.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3' onClick={()=>Additem(e.id)}>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>shareindex(e.id)}>lire la suite</button>
+            e.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3' onClick={()=>Additem(e.id)}> Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>shareindex(e.id)}>lire la suite</button>
           }
        </div>
       </nav>
@@ -98,6 +115,17 @@ const StorePage = ({onload}) => {
           filter : id
         }
       })
+      if (window.innerWidth >900) {
+        window.scrollTo({
+          top:itemsdisplay.filteritemgrid === "grid-cols-2" ? 1000 : 1500,
+          behavior:"smooth"
+        })
+      }else{
+        window.scrollTo({
+          top:1500,
+          behavior:"smooth"
+        })
+      }
   
   }
   const Debardeurproduct = (id)=>{
@@ -108,6 +136,17 @@ const StorePage = ({onload}) => {
         filter : id
       }
     })
+    if (window.innerWidth >900) {
+      window.scrollTo({
+        top:itemsdisplay.filteritemgrid === "grid-cols-2" ? 1000 : 1500,
+        behavior:"smooth"
+      })
+    }else{
+      window.scrollTo({
+        top:1500,
+        behavior:"smooth"
+      })
+    }
   }
   function List_System(id){
     setsystem((prev)=>{
@@ -138,7 +177,7 @@ const StorePage = ({onload}) => {
         filteritemgrid : "grid-cols-2",
         filteritemproperty : "w-[350px] items-center pl-0",
         productgrid : "product:grid-cols-2 store:grid-cols-3",
-    productproperty : "w-[330px]"
+        productproperty : "w-[330px]"
       }
     })
   }

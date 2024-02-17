@@ -1,11 +1,21 @@
 import { useContext } from 'react'
 import {React,useState,useEffect} from 'react'
+import toast from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { shareProductDetails } from '../../../Contexts/ProductDetails'
+import Promo from '../Checkout/PromoCode/Promo'
 import Data from '../Product-Data/Data'
-import pic_test from '../Store-part-pic/Carnitine.jpeg'
 
-const Card = () => {
+
+const Card = ({onload}) => {
+  // this useeffect to load the header and footer component when this component load
+  useEffect(() => {
+    const fetchData = async () => {
+      onload && onload();
+    };
+    fetchData();
+}, []);
+
   let navigate = useNavigate()
   let {card} = useContext(shareProductDetails)
   let {setcard} = useContext(shareProductDetails)
@@ -47,14 +57,41 @@ useEffect(()=>{
     }
   })
 },[window.innerWidth])
-// this function it's for delete item from the local storage 
+// this shared usestate from the app (cardtot,setcardt) it's for taking the price sum from the L.S
+let {cardtot} = useContext(shareProductDetails);
+let {setcardtot} = useContext(shareProductDetails);
+// this function it's for delete item from the local storage and update the total item from the L.S
 
 function RemoveItem(id){
- let index = id-1
- let array = JSON.parse(window.localStorage.getItem("arr"))
- let newarray = array.filter(element => element !== index);
- window.localStorage.setItem("arr",JSON.stringify(newarray))
- setcard(newarray)
+  let index = id-1
+  let localtot = +window.localStorage.getItem("total")
+  let productprice = Data[id-1].price
+  let newtot = localtot-productprice
+  let array = JSON.parse(window.localStorage.getItem("arr"))
+  let newarray = array.filter(element => element !== index);
+  window.localStorage.setItem("arr",JSON.stringify(newarray))
+  setcard(newarray)
+  window.localStorage.setItem("total",newtot)
+  setcardtot(newtot)
+  toast.success("Removed from the Card")
+}
+// this function it's for applying the promo code
+let {promocode} = useContext(shareProductDetails)
+let {setpromocode} = useContext(shareProductDetails)
+function Promocode(){
+  let inputvalue = document.getElementById("Codeinput").value
+  if (inputvalue === "")  {
+    toast.error("Promo Code input is empty")
+  }else{
+    if (Promo.includes(inputvalue)) {
+    let promotion = cardtot - (cardtot*0.1)
+    setpromocode(promotion)
+    toast.success("promo Code Applied")
+  }else{
+    toast.error("Invalid Promo Code")
+  }
+  }
+  
 
 }
   return (
@@ -98,10 +135,10 @@ function RemoveItem(id){
             <td className='border-2 border-zinc-800 h-[90px]' colSpan={6}>
               <nav className='flex w-[90%] items-center justify-between relative left-1/2 -translate-x-1/2'>
                 <div className='flex gap-5 items-center'>
-                  <input type="text" name="" id="" className='w-52 h-12 rounded-2xl product_color text-white pl-3 focus:outline-none' placeholder='Code Promo'/>
-                  <button className='bg-orange-500 h-12 rounded-xl w-52 text-white'>Appliquer le code Promo</button>
+                  <input type="text" name="" id="Codeinput" className='w-52 h-12 rounded-2xl product_color text-white pl-3 focus:outline-none' placeholder='Code Promo'/>
+                  <button className='bg-orange-500 h-12 rounded-xl w-52 text-white transition-colors duration-500 hover:bg-white hover:text-orange-500 sh font-bold' onClick={Promocode}>Appliquer le code Promo</button>
                 </div>
-                <button className='bg-orange-500 h-12 rounded-xl w-52 text-white'>Mettre A Jour le Panier</button>
+                <button className='bg-orange-500 h-12 rounded-xl w-52 text-white transition-colors duration-500 hover:bg-white hover:text-orange-500 sh font-bold'>Mettre A Jour le Panier</button>
               </nav>
             </td>
           </tr>
@@ -115,7 +152,7 @@ function RemoveItem(id){
             </div>
              
           </div>
-          <button className='w-44 sm:w-48 h-12 rounded-xl text-sm sm:text-md bg-orange-500 text-white font-bold self-start mt-6 ml-6 sm:ml-16 transition-colors duration-500 hover:bg-white sh hover:text-orange-500' onClick={()=> navigate("/Keroumi-V1/Protein")}>retourne a la boutique</button>
+          <button className='w-44 sm:w-48 h-12 rounded-xl text-sm sm:text-md bg-orange-500 text-white font-bold self-start mt-6 ml-6 sm:ml-16 transition-colors duration-500 hover:bg-white sh hover:text-orange-500' onClick={()=> {navigate("/Keroumi-V1/Store"),scrollTo({top:600,behavior:"smooth"})}}>retourne a la boutique</button>
         </> 
         
         
@@ -174,8 +211,8 @@ function RemoveItem(id){
               <tr className='border-2 border-zinc-800'>
                 <td className='flex flex-col items-center gap-2 border-zinc-800'>
                   <input type="text" className='w-[90%] h-12 rounded-2xl product_color text-white pl-3 focus:outline-none' placeholder='Code Promo'/>
-                  <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white'>Appliquer le code Promo</button>
-                  <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white'>Mettre A Jour le Panier</button>
+                  <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white font-bold transition-colors duration-500 hover:bg-white hover:text-orange-500 sh'>Appliquer le code Promo</button>
+                  <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white font-bold transition-colors duration-500 hover:bg-white hover:text-orange-500 sh'>Mettre A Jour le Panier</button>
                 </td>
               </tr>
         </table> 
@@ -188,14 +225,14 @@ function RemoveItem(id){
               <div className='flex flex-col card_color rounded-xl'>
                 <div className='flex justify-between w-full pl-10 pr-10 items-center self-center h-20  second_product text-[20px] font-bold text-white'>
                   <h2>Sous-Total : </h2>
-                  <h3>200 Mad</h3>
+                  <h3>{cardtot} Mad</h3>
                 </div>
                 <div className='flex justify-between w-full pl-10 pr-10 items-center self-center h-20 text-[20px] font-bold text-white'>
                   <h2>Total : </h2>
-                  <h3>200 Mad</h3>
+                  <h3>{promocode} Mad</h3>
                 </div>
               </div>
-              <button className='bg-orange-500 w-full h-12 rounded-2xl text-white font-bold mt-5'>Valider La commande</button>
+              <button className='bg-orange-500 w-full h-12 rounded-2xl text-white font-bold mt-5 transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={()=> navigate("/Keroumi-V1/Store/Checkout")}>Valider La commande</button>
         </nav> 
         : "" 
       } 

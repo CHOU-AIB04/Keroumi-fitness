@@ -2,12 +2,14 @@ import React from 'react'
 import { useContext,useEffect } from 'react'
 import { shareProductDetails } from '../../../Contexts/ProductDetails'
 import Data from '../Product-Data/Data'
-import { useNavigate,NavLink,Outlet } from 'react-router-dom'
+import { useNavigate,NavLink,Outlet, Link } from 'react-router-dom'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useState } from 'react'
-import pic from "../Store-part-pic/Carnitine.jpeg"
+import Comment from './Comment/Comment'
+import Description from './Description/Description'
+import toast from 'react-hot-toast'
 
 const ProductDetails = ({onload}) => {
   let navigate = useNavigate()
@@ -87,27 +89,59 @@ const ProductDetails = ({onload}) => {
         additional_product.push(random)
       }
     }
-    // this function it's for switching the current product in the product details
-    function switch_index(id){
+  // this function it's for switching the current product in the product details
+  function switch_index(id){
       setselecteditem(id)
-      navigate("/Keroumi-V1/Protein/Product-details")
       window.scrollTo({
         top:500,
         behavior:"smooth"
       })
       window.localStorage.setItem("currentproduct",id)
-    }
-  
-// this function it's for delete item from the local storage 
-
+  }
+// this shared usestate from the app (cardtot,setcardt) it's for taking the price sum from the L.S
+let {cardtot} = useContext(shareProductDetails);
+let {setcardtot} = useContext(shareProductDetails);
+// this function it's for delete item from the local storage and update the total item in the L.S
 function RemoveItem(id){
   let index = id-1
+  let localtot = +window.localStorage.getItem("total")
+  let productprice = Data[id-1].price
+  let newtot = localtot-productprice
   let array = JSON.parse(window.localStorage.getItem("arr"))
   let newarray = array.filter(element => element !== index);
   window.localStorage.setItem("arr",JSON.stringify(newarray))
   setcard(newarray)
- 
+  window.localStorage.setItem("total",newtot)
+  setcardtot(newtot)
+  toast.success("Removed from the Card")
  }
+
+// this function it's for adding a new product to the card component and add it in local storage eitheir
+function Additem(id){
+  //  the first item from L.s . for get the an array to push in this array new product and display it card component
+let localarray = localStorage.getItem("arr")
+    // this one it's for take this item from L.S and add on it the product price to display it in the card component
+let totlocal = +localStorage.getItem("total")
+let exist = localarray.includes(id-1)
+let productprice = Data[id-1].price
+if(exist){
+  toast.error("Product Already exist")
+  return
+}else{
+  let array = [...card,id-1]
+  toast.success("Added to Card")
+  window.localStorage.setItem("arr",JSON.stringify(array))
+  setcard(array)
+  let tot = totlocal + productprice
+  window.localStorage.setItem("total",tot)
+  setcardtot(tot)
+}
+}
+// this usestate it's for showwing description component or comment component instead of using usenavigate
+let [detailscontent,setdetailscontent] = useState({
+  component : <Description />,
+  active : 1
+})
   return (
     <article className='w-full h-auto storecolor relative top-[423px] store:grid flex flex-col items-center  store:grid-cols-3 gap-56 store:gap-0 left-1/2 -translate-x-1/2 place-content-center'>
                         
@@ -156,10 +190,12 @@ function RemoveItem(id){
           </nav>
           <nav className='w-[95%] min-h-96 h-auto storecolor border-2 border-gray-500 rounded-md'>
             <div className='w-[300px] h-14 flex gap-3 mt-1 ml-1'>
-              <NavLink to="" end className="w-1/2 h-full bg-gray-700 flex justify-center items-center text-white transition-all duration-500 hover:text-orange-500 text-xl cursor-pointer" style={({isActive})=> isActive ? styles : null}>Descriton</NavLink>
-              <NavLink to="Comment" className='w-1/2 h-full bg-gray-700 flex justify-center items-center text-white transition-all duration-500 hover:text-orange-500 text-xl cursor-pointer' style={({isActive})=> isActive ? styles : null}>Avis</NavLink>
+               <nav className={`w-1/2 h-full bg-gray-700 flex justify-center items-center ${detailscontent.active === 1 ? "text-orange-500" : "text-white"} transition-all duration-500 hover:text-orange-500 text-xl cursor-pointer`} onClick={()=>setdetailscontent((prev) =>({...prev,active : prev.active = 1,component : prev.component = <Description />}))}>Descriton</nav> 
+               <nav className={`w-1/2 h-full bg-gray-700 flex justify-center items-center ${detailscontent.active === 2 ? "text-orange-500" : "text-white"} transition-all duration-500 hover:text-orange-500 text-xl cursor-pointer`} onClick={()=>setdetailscontent((prev) =>({...prev,active : prev.active = 2,component : prev.component = <Comment />}))}>Avis</nav>
             </div>
-            <Outlet />
+            {
+              detailscontent.component
+            }
           </nav>
               <nav className='w-[87%] h-auto flex justify-center items-center mt-5'>
                   <div className='w-full h-full'>
@@ -189,7 +225,7 @@ function RemoveItem(id){
                                   {product.fake_price ? <p className='text-zinc-500 line-through test-sm'>{product.fake_price} MAD</p> : <></>}
                                 </div>
                                 {
-                                  product.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3'>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>switch_index(product.id)}>lire la suite</button>
+                                  product.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3' onClick={()=>Additem(product.id)}>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>switch_index(product.id)}>lire la suite</button>
                                 }
                             </div>
                           </nav>
@@ -226,6 +262,16 @@ function RemoveItem(id){
                       })
                     }
                     </div>
+                    <nav className='space-y-3 flex flex-col items-center border-t-4 border-white mr-5 pb-2 pt-2'>
+                      <div className='flex justify-between items-center pr-6 w-full'>
+                        <h1 className='text-white font-bold'>Sous-Total : </h1>
+                        <h2 className='text-white font-bold'>{cardtot} Mad</h2>
+                      </div>
+                      <div className='flex gap-10'>
+                        <button className='w-36 h-10 bg-orange-500 font-bold text-white rounded-md transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={()=>{navigate("/keroumi-V1/Store/cart"),scrollTo({ top:400,behavior:"smooth"})}}>Voir le panier</button>
+                        <button className='w-36 h-10 bg-orange-500 font-bold text-white rounded-md transition-colors duration-500 hover:bg-white hover:text-orange-500 sh'>Commander</button>
+                      </div>
+                    </nav>
                   </> 
                   :
                   <>

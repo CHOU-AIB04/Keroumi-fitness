@@ -13,6 +13,9 @@ import { shareProductDetails } from "./Contexts/ProductDetails";
 import Effect from "./Compenents/Move_Effect/Effect";
 import Description from "./Compenents/Store_Part/ProductDetail/Description/Description";
 import Comment from "./Compenents/Store_Part/ProductDetail/Comment/Comment";
+import NotFound from "./Compenents/PagenotFound/NotFound";
+import { Toaster } from "react-hot-toast";
+import Checkout from "./Compenents/Store_Part/Checkout/Checkout";
 const StorePage = lazy(()=>import('./Compenents/Store_Part/Store_Page/StorePage'))
 const Footer = lazy(()=>import('./Compenents/Footer/Footer'))
 const Home = lazy(()=> import('./Compenents/Home/Home'))
@@ -20,7 +23,8 @@ const Contact = lazy(()=> import('./Compenents/Contact/Contact'))
 const About = lazy(()=> import('./Compenents/About/About'))
 const ProductDetails = lazy(()=> import('./Compenents/Store_Part/ProductDetail/ProductDetails')) ;
 const Card = lazy(()=>import('./Compenents/Store_Part/Card/Card'))
-
+const Store = lazy(()=> import("./Compenents/Store_Part/Store_Page/Store"));
+Store
 function App() {
             //  this state it's for the card conponent 
   let [card,setcard] = useState([])
@@ -37,6 +41,19 @@ function App() {
     let currentproduct = window.localStorage.getItem("currentproduct")
     return currentproduct ? parseInt(currentproduct) : 1
   })
+  // this usestate it's for taking a value from L.S that contain sum of card product
+  let [cardtot,setcardtot] = useState(()=>{
+    let localtot = window.localStorage.getItem("total")
+    return localtot ? localtot : 0
+  })
+  // this usestate it's applying Promo Code
+  let [promocode,setpromocode] = useState(cardtot)
+  // this useeffect it's for inital an item in the L.S to add on it some calcul if L.S.length <= 2 
+  useEffect(()=>{
+    if(localStorage.length<=2){
+      window.localStorage.setItem("total","")
+    }
+  },[])
   let [isloaded,setisloaded] = useState({
     footer1: false,
     footer2: false,
@@ -46,10 +63,11 @@ function App() {
     storeFooter: false
   })
   let storePaths = [
-    "/Keroumi-V1/Protein",
-    "/Keroumi-V1/Protein/Product-details",
-    "/keroumi-V1/Protein/Card",
-    "/Keroumi-V1/Protein/Product-details/Comment"
+    "/Keroumi-V1/Store",
+    "/Keroumi-V1/Store/Product-details",
+    "/keroumi-V1/Store/cart",
+    "/Keroumi-V1/Store/Product-details",
+    "/Keroumi-V1/Store/Checkout",
   ]
   let location = useLocation()
   let storepath = storePaths.includes(location.pathname)
@@ -122,7 +140,8 @@ function App() {
   document.body.style.backgroundColor = storepath ? "#191918" : "black"
   return (
     <HideNav.Provider value={{ shownav, setshownav, Hidenav,handle_click,scroll,storepath}}>
-    <shareProductDetails.Provider value={{selecteditem,setselecteditem,card,setcard}}>
+    <shareProductDetails.Provider value={{selecteditem,setselecteditem,card,setcard,cardtot,setcardtot,promocode,setpromocode}}>
+        <div><Toaster position="top-right" reverseOrder={true}/></div>
         {
           storepath  &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>
         }
@@ -132,6 +151,7 @@ function App() {
               <Home onload={Footer1}/>
             </Suspense>
           }/>
+          <Route path="*" element={<NotFound />}/>
           <Route path="Keroumi-V1/Contact" element={
             <Suspense fallback={<Loading />}>
               <Contact onload={Footer2}/>
@@ -142,24 +162,32 @@ function App() {
               <About onload={Footer3}/>
             </Suspense>
           }/>
-          <Route  path="/Keroumi-V1/Protein" element={
+          <Route  path="/Keroumi-V1/Store" element={
             <Suspense fallback={<Loading />}>
-              <StorePage onload={Storeloading}/>
-            </Suspense>
-          }/>
-          <Route path="/Keroumi-V1/Protein/Product-details" element={
-            <Suspense fallback={<Alter />}>
-                  <ProductDetails onload={Storeloading}/>
-            </Suspense>
-          }>
-            <Route path="" element= {<Description />} />
-            <Route path="Comment" element= {<Comment />} />
+              <Store onload={Storeloading}/>
+            </Suspense>}>
+            <Route path="" element={
+              <Suspense fallback={<Alter />}>
+                    <StorePage onload={Storeloading}/>
+              </Suspense>
+            }/>
+            <Route path="Product-details" element={
+              <Suspense fallback={<Alter />}>
+                    <ProductDetails onload={Storeloading}/>
+              </Suspense>}
+            />
+            <Route path="cart" element={
+              <Suspense fallback={<Alter />}>
+                <Card onload={Storeloading}/>
+              </Suspense> 
+            } />
+            <Route path="Checkout" element={
+              <Suspense fallback={<Alter />}>
+                <Checkout onload={Storeloading}/>
+              </Suspense> 
+            } />
           </Route>
-          <Route path="/keroumi-V1/Protein/Card" element={
-            <Suspense fallback={<Alter />}>
-              <Card />
-            </Suspense>
-          } />
+          
         </Routes>
         <Scroll />
         {

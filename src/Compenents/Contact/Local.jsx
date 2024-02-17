@@ -17,7 +17,7 @@ export const Local = () => {
     </motion.iframe>
     </article>
     <article className="w-[350px] tablet:w-[350px] md:w-full flex flex-col items-center tablet:items-center md:items-start ">
-        <h1 className='text-[37px] text-white font-bold'>Contact</h1>
+        <h1 className='text-[37px] text-white font-bold'>Contact Us</h1>
         <nav className='grid grid-cols-1 place-items-center tablet:grid-cols-1 md:grid-cols-2 self-center'>
             <motion.div initial={{opacity:0}} transition={{duration:1,delay:0.2}} whileInView={{opacity:1}} viewport={{once:true}} className='flex  gap-10 l-3 relativr w-full h-[150px] items-center'>
                 <div>

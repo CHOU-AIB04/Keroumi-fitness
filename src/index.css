@@ -298,3 +298,48 @@ body {
 .card_color{
   background-color: #222222;
 }
+::selection{
+  background-color: rgba(255, 68, 0, 0.5);
+}
+.colorchange{
+  animation: change 2s linear infinite;
+}
+@keyframes change {
+  0%{
+    color: white;
+  }
+  50%{
+    color: orangered;
+  }
+  100%{
+    color: white;
+  }
+}
+.paybefore::before{
+  position: absolute;
+  content: "Payement a livraison";
+  width: 97%;
+  height: 40px;
+  background-color: rgb(156, 156, 156);
+  padding-left: 10px;
+  padding-top: 10px;
+  bottom: -50px;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 5px;
+  z-index: 5;
+}
+.paybefore::after{
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  background-color: rgb(156, 156, 156);
+  bottom: -23px;
+  left: 100px;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  border-top-right-radius: 50%;
+  transform: rotate(40deg);
+
+}

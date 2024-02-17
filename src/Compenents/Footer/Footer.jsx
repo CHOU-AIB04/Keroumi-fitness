@@ -23,12 +23,12 @@ const Footer = (props) => {
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Home</li>
             </NavLink>
             <NavLink to="Keroumi-V1/Contact" end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
-                <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Contact</li>
+                <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Contact Us</li>
             </NavLink>
             <NavLink to="Keroumi-V1/About" end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
-                <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>About</li>
+                <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>About Us</li>
             </NavLink>
-            <NavLink to="Keroumi-V1/Protein" end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
+            <NavLink to="Keroumi-V1/Store" end onClick={Hidenav} style={({isActive})=> isActive ? style: null}>
                 <li className='transition-all duration-500 hover:text-orange-600 cursor-pointer'>Protein<span className='ml-1'>Store</span></li>
             </NavLink>     
         </motion.ul>
