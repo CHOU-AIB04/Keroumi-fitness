@@ -47,7 +47,7 @@ const StorePage = ({onload}) => {
   // this function it's for switching the current product in the product details
   function shareindex(id){
     setselecteditem(id)
-    navigate("/Keroumi-V1/Store/Product-details")
+    navigate("/Keroumi-fitness/Store/Product-details")
     window.scrollTo({
       top:450,
       behavior:"smooth"

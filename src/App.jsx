@@ -63,11 +63,11 @@ function App() {
     storeFooter: false
   })
   let storePaths = [
-    "/Keroumi-V1/Store",
-    "/Keroumi-V1/Store/Product-details",
-    "/keroumi-V1/Store/cart",
-    "/Keroumi-V1/Store/Product-details",
-    "/Keroumi-V1/Store/Checkout",
+    "/Keroumi-fitness/Store",
+    "/Keroumi-fitness/Store/Product-details",
+    "/Keroumi-fitness/Store/cart",
+    "/Keroumi-fitness/Store/Product-details",
+    "/Keroumi-fitness/Store/Checkout",
   ]
   let location = useLocation()
   let storepath = storePaths.includes(location.pathname)
@@ -146,23 +146,23 @@ function App() {
           storepath  &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>
         }
         <Routes>
-          <Route path="Keroumi-V1/" element={
+          <Route path="Keroumi-fitness/" element={
             <Suspense fallback={<Loading/>}>
               <Home onload={Footer1}/>
             </Suspense>
           }/>
           <Route path="*" element={<NotFound />}/>
-          <Route path="Keroumi-V1/Contact" element={
+          <Route path="Keroumi-fitness/Contact" element={
             <Suspense fallback={<Loading />}>
               <Contact onload={Footer2}/>
             </Suspense>
           } />
-          <Route path="Keroumi-V1/About" element={
+          <Route path="Keroumi-fitness/About" element={
             <Suspense fallback={<Loading />}>
               <About onload={Footer3}/>
             </Suspense>
           }/>
-          <Route  path="/Keroumi-V1/Store" element={
+          <Route  path="/Keroumi-fitness/Store" element={
             <Suspense fallback={<Loading />}>
               <Store onload={Storeloading}/>
             </Suspense>}>
@@ -191,19 +191,19 @@ function App() {
         </Routes>
         <Scroll />
         {
-          currentpath === "/Keroumi-V1/"  && isloaded.footer1 ? 
+          currentpath === "/Keroumi-fitness/"  && isloaded.footer1 ? 
           <Suspense>
             <Footer footer_responsive ="sm:top-[4100px] top-[2950px] small_tablet:top-[1400px]"/>
           </Suspense> : <></>
         }
         {
-          currentpath === "/Keroumi-V1/Contact" && isloaded.footer2 ? 
+          currentpath === "/Keroumi-fitness/Contact" && isloaded.footer2 ? 
           <Suspense>
             <Footer footer_responsive="top-[400px] small_tablet:top-[200px]" />
           </Suspense> : <></>
         }
         {
-          currentpath === "/Keroumi-V1/About"  && isloaded.footer3 ? 
+          currentpath === "/Keroumi-fitness/About"  && isloaded.footer3 ? 
           <Suspense>
             <Footer footer_responsive="top-[2100px] small_tablet:top-[500px]"/>
           </Suspense> : <></>

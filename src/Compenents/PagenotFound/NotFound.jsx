@@ -10,7 +10,7 @@ const NotFound = () => {
             <h1 className='text-orange-500 font-bold text-[30px]'>OOOOOOOPS!</h1>
             <h2 className='text-white font-bold text-[20px]'>Page Not Found 404</h2>
         </div>
-        <Link to="/Keroumi-V1/">
+        <Link to="/Keroumi-fitness/">
             <button className='bg-orange-500 text-white font-bold h-11 w-56 rounded-md transition-all duration-500 hover:scale-105 hover:text-orange-500 hover:bg-white sh'>Return to the home Page</button>
         </Link>
     </section>   

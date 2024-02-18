@@ -272,7 +272,7 @@ let [detailscontent,setdetailscontent] = useState({
                         <h2 className='text-white font-bold'>{cardtot} Mad</h2>
                       </div>
                       <div className='flex gap-10'>
-                        <button className='w-36 h-10 bg-orange-500 font-bold text-white rounded-md transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={()=>{navigate("/keroumi-V1/Store/cart"),scrollTo({ top:400,behavior:"smooth"})}}>Voir le panier</button>
+                        <button className='w-36 h-10 bg-orange-500 font-bold text-white rounded-md transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={()=>{navigate("/Keroumi-fitness/Store/cart"),scrollTo({ top:400,behavior:"smooth"})}}>Voir le panier</button>
                         <button className='w-36 h-10 bg-orange-500 font-bold text-white rounded-md transition-colors duration-500 hover:bg-white hover:text-orange-500 sh'>Commander</button>
                       </div>
                     </nav>

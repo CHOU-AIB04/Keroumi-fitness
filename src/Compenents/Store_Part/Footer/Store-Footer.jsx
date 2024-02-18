@@ -36,11 +36,11 @@ const StoreFooter = () => {
                 <div>
                     <div className='flex gap-2'>
                         <i className="bi bi-chevron-double-right text-white"></i>
-                        <a href="#" className='text-white font-bold  transition-all duration-500 hover:text-orange-500' onClick={scroll}><NavLink to="Keroumi-V1/" end style={({isActive})=> isActive ? style : null}>Coaching</NavLink></a>
+                        <a href="#" className='text-white font-bold  transition-all duration-500 hover:text-orange-500' onClick={scroll}><NavLink to="Keroumi-fitness/" end style={({isActive})=> isActive ? style : null}>Coaching</NavLink></a>
                     </div>
                     <div className='flex gap-2'>
                         <i className="bi bi-chevron-double-right text-white"></i>
-                        <a href="#" className='text-white font-bold  transition-all duration-500 hover:text-orange-500' onClick={scroll}><NavLink to="Keroumi-V1/Store" end style={({isActive})=> isActive ? style : null}>Proteines & Produits</NavLink></a>
+                        <a href="#" className='text-white font-bold  transition-all duration-500 hover:text-orange-500' onClick={scroll}><NavLink to="Keroumi-fitness/Store" end style={({isActive})=> isActive ? style : null}>Proteines & Produits</NavLink></a>
                     </div>
                 </div>
             </nav>

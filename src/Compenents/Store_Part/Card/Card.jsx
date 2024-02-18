@@ -167,7 +167,7 @@ function Promocode2(){
             </div>
              
           </div>
-          <button className='w-44 sm:w-48 h-12 rounded-xl text-sm sm:text-md bg-orange-500 text-white font-bold self-start mt-6 ml-6 sm:ml-16 transition-colors duration-500 hover:bg-white sh hover:text-orange-500' onClick={()=> {navigate("/Keroumi-V1/Store"),scrollTo({top:600,behavior:"smooth"})}}>retourne a la boutique</button>
+          <button className='w-44 sm:w-48 h-12 rounded-xl text-sm sm:text-md bg-orange-500 text-white font-bold self-start mt-6 ml-6 sm:ml-16 transition-colors duration-500 hover:bg-white sh hover:text-orange-500' onClick={()=> {navigate("/Keroumi-fitness/Store"),scrollTo({top:600,behavior:"smooth"})}}>retourne a la boutique</button>
         </> 
         
         
@@ -247,7 +247,7 @@ function Promocode2(){
                   <h3>{promocode} Mad</h3>
                 </div>
               </div>
-              <button className='bg-orange-500 w-full h-12 rounded-2xl text-white font-bold mt-5 transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={()=> {navigate("/Keroumi-V1/Store/Checkout"),scrollTo({top:450,behavior:"smooth"})}}>Valider La commande</button>
+              <button className='bg-orange-500 w-full h-12 rounded-2xl text-white font-bold mt-5 transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={()=> {navigate("/Keroumi-fitness/Store/Checkout"),scrollTo({top:450,behavior:"smooth"})}}>Valider La commande</button>
         </nav> 
         : "" 
       } 
