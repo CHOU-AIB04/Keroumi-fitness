@@ -1,6 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* this style for changing the color of scrool-y */
+::-webkit-scrollbar {
+  width: 15px; /* this one for the width of scroll container */
+
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* this one for the background-color of scroll container */
+}
+
+::-webkit-scrollbar-thumb {
+  background: orangered; /* Change to orangered color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: white; /* Adjust hover color if needed */
+}
+
+/* here starting css for all my components*/
 html {
   scroll-behavior: smooth;
 }
