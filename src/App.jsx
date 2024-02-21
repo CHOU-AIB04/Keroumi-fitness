@@ -50,9 +50,11 @@ function App() {
   let [promocode,setpromocode] = useState(cardtot)
   // this useeffect it's for inital an item in the L.S to add on it some calcul if L.S.length <= 2 
   useEffect(()=>{
-    window.localStorage.setItem("total","")
-    window.localStorage.setItem("arr",[])
-    window.localStorage.setItem("currentproduct","")
+    if(window.localStorage.length !==3){
+      window.localStorage.setItem("total","")
+      window.localStorage.setItem("arr",[])
+      window.localStorage.setItem("currentproduct","")
+    }
   },[])
   let [isloaded,setisloaded] = useState({
     footer1: false,
