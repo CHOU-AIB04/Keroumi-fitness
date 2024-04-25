@@ -1,1 +1,0 @@
-import{j as t,O as r}from"./index-_oh2Gbgb.js";const s=()=>t.jsx(t.Fragment,{children:t.jsx(r,{})});export{s as default};
