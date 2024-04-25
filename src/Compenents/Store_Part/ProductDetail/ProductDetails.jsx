@@ -10,14 +10,16 @@ import { useState } from 'react'
 import Comment from './Comment/Comment'
 import Description from './Description/Description'
 import toast from 'react-hot-toast'
+import axios from 'axios'
 
 const ProductDetails = ({onload}) => {
+   // this usestate it's for comments 
+   let [Comments,setComments] = useState([])
+  // this import for testing if the Data imported from database is working well
+  let {DataBase,setDataBase} = useContext(shareProductDetails)
   let navigate = useNavigate()
   // the next usecontext it's for card component product
-  let {card} = useContext(shareProductDetails)
-  let {setcard} = useContext(shareProductDetails)
-  let {setselecteditem} = useContext(shareProductDetails)
-  let {selecteditem} = useContext(shareProductDetails)
+  let {card,setcard,selecteditem,setselecteditem} = useContext(shareProductDetails)
   let [showslide ,setshowslide] = useState(()=>{
     if(window.innerWidth >= 1050){
       return 3
@@ -62,24 +64,38 @@ const ProductDetails = ({onload}) => {
   
     })
   },[showslide])
-    let product = Data[selecteditem-1]
+    let product = DataBase.filter((e)=> parseInt(e.id) === selecteditem)[0];
+// this useeefect to get the comment for this product
+    useEffect(()=>{
+      axios.get(`http://localhost:80/MY_PROJECTS/KeroumiDash/comment?prod_id=${parseInt(product.id)}`).then((res)=>{
+      setComments(res.data)
+    })
+    },[selecteditem])
     let element = []
     let additional_product = []
       // this for statement it's for ramdom num in element array
     for (let i = 0; i < 5; i++) {
-      let random = Math.floor(Math.random() * Data.length)
-      if (element.includes(random) || random === selecteditem-1) {
+      let random = Math.floor(Math.random() * DataBase.length)
+      if (element.includes(random) || random === selecteditem) {
+        if (random === DataBase.length-1) {
+          random
+        }else{
           random++
-          element.push(random)
+        }
+          
+        element.push(random)
       }else{
         element.push(random)
       }
     }
       // this for statement it's for ramdom num in additional_product array
     for (let i = 1; i < 11; i++) {
-      let random = Math.floor(Math.random() * Data.length)
+      let random = Math.floor(Math.random() * DataBase.length)
       if (additional_product.includes(random)) {
-          random++
+          if (random !== DataBase.length-1) {
+            random++
+          }
+          
           if (additional_product.includes(random)){
             random +=1
             additional_product.push(random)
@@ -91,12 +107,20 @@ const ProductDetails = ({onload}) => {
     }
   // this function it's for switching the current product in the product details
   function switch_index(id){
-      setselecteditem(id)
+      setselecteditem(parseInt(id))
       window.scrollTo({
         top:500,
         behavior:"smooth"
       })
-      window.localStorage.setItem("currentproduct",id)
+      window.localStorage.setItem("currentproduct",parseInt(id))
+      setdetailscontent((prev)=>{
+        return{
+          ...prev,
+          active : 1,
+          component : <Description />
+        }
+
+      })
   }
 // this shared usestate from the app (cardtot,setcardt) it's for taking the price sum from the L.S
 let {cardtot} = useContext(shareProductDetails);
@@ -104,48 +128,75 @@ let {setcardtot} = useContext(shareProductDetails);
 let {setpromocode} = useContext(shareProductDetails)
 // this function it's for delete item from the local storage and update the total item in the L.S
 function RemoveItem(id){
-  let index = id-1
+  let index = parseInt(id)
   let localtot = +window.localStorage.getItem("total")
-  let productprice = Data[id-1].price
-  let newtot = localtot-productprice
+  let productprice = DataBase.filter((e)=> parseInt(e.id) === index)[0].price
+  let newtot = localtot-parseInt(productprice)
   let promotot = newtot - (newtot*0.1)
   let array = JSON.parse(window.localStorage.getItem("arr"))
-  let newarray = array.filter(element => element !== index);
+  let newarray = array.filter(element => element.prod !== index);
   window.localStorage.setItem("arr",JSON.stringify(newarray))
   setcard(newarray)
   window.localStorage.setItem("total",newtot)
   setcardtot(newtot)
-  toast.success("Removed from the Card")
   setpromocode(newtot)
+  toast.success("Removed from the Card")
  }
 
 // this function it's for adding a new product to the card component and add it in local storage eitheir
 function Additem(id){
-  //  the first item from L.s . for get the an array to push in this array new product and display it card component
-let localarray = localStorage.getItem("arr")
+  const Qte = document.getElementById("qte").value
+    //  the first item from L.s . for get the an array to push in this array new product and display it card component
+    let localarray = localStorage.getItem("arr")
     // this one it's for take this item from L.S and add on it the product price to display it in the card component
-let totlocal = +localStorage.getItem("total")
-let exist = localarray.includes(id-1)
-let productprice = Data[id-1].price
-if(exist){
-  toast.error("Product Already exist")
-  return
-}else{
-  let array = [...card,id-1]
-  toast.success("Added to Card")
-  window.localStorage.setItem("arr",JSON.stringify(array))
-  setcard(array)
-  let tot = totlocal + productprice
-  window.localStorage.setItem("total",tot)
-  setcardtot(tot)
-  setpromocode(tot)
-}
+    let totlocal = +localStorage.getItem("total")
+    let exist = localarray.includes(parseInt(id))
+    let productprice = DataBase.filter((e)=> parseInt(e.id) === parseInt(id))[0]
+  if(exist){
+    toast.error("Product Already exist")
+    return
+  }else{
+    let array = [...card,{prod : parseInt(id),qte : parseInt(Qte)}]
+    toast.success("Added to Card")
+    window.localStorage.setItem("arr",JSON.stringify(array))
+    setcard(array)
+    let tot = totlocal + parseInt(productprice.price)*parseInt(Qte)
+    window.localStorage.setItem("total",tot)
+    setcardtot(tot)
+    setpromocode(tot)
+
+  }
 }
 // this usestate it's for showwing description component or comment component instead of using usenavigate
 let [detailscontent,setdetailscontent] = useState({
   component : <Description />,
   active : 1
 })
+
+// this function for checking if the quanite is more than available
+
+                /*-----------part need to fix------------- */
+
+// let [handlemax,sethandlemax] = useState({
+//   current : 1,
+//   max : parseInt(product.available)
+// })
+
+// const HandleMax = ()=>{
+//   let qte = document.getElementById("qte").value;
+//   console.log(qte)
+//   console.log(product.available)
+//   if (qte > product.available) {
+//     sethandlemax((prev)=>{
+//       return{
+//         ...prev,
+//         current : product.available
+//       }
+//     })
+
+//     qte = handlemax.current
+//   }
+// }
   return (
     <article className='w-full h-auto storecolor relative top-[423px] store:grid flex flex-col items-center  store:grid-cols-3 gap-56 store:gap-0 left-1/2 -translate-x-1/2 place-content-center'>
                         
@@ -154,40 +205,38 @@ let [detailscontent,setdetailscontent] = useState({
         <section className='col-span-2 h-auto w-full flex flex-col items-center gap-10'>
           <nav className='h-auto store:pl-3 pl-2 pt-3 w-full flex-col md:flex-row flex  gap-6 items-center'>
             <div className='h-[350px] w-[350px] md:w-[800px] md:h-[450px] flex justify-center items-center rounded-xl overflow-hidden relative'>
-              <img src={product.pic} alt="product" className='h-full w-full object-cover' />
+              <img src={`http://localhost/MY_PROJECTS/KeroumiDash/products/${product.pic}`} alt="product" className='h-full w-full object-cover' />
               <div className='absolute top-1 right-1 w-12 h-12 rounded-full bg-orange-500 flex justify-center items-center'>
                   <i className='bi bi-search text-white font-bold text-[25px]'></i>
               </div>
               {
-                product.fake_price ? 
+                product.fake_price !=="0" ? 
                 <div className='w-16 h-16 bg-orange-500 rounded-full flex justify-center items-center absolute top-2 left-3'>
                   <p className='text-white text-sm'>Promo!</p>
                 </div> : <></>
               }
             </div>
             <div className='flex w-[90%] flex-col gap-4 pb-4'>
-              <h1 className='text-white text-[25px] sm:text-[40px] font-bold'>{product.tittle}</h1>
+              <h1 className='text-white text-[25px] sm:text-[30px] font-bold'>{product.tittle}</h1>
               <div className='flex items-center gap-4'>
                 <p className='text-white font-bold'>{product.price} Mad</p>
                 {
-                  product.fake_price ? <p className='text-white line-through'>{product.fake_price} Mad</p> : <></>
+                  product.fake_price !== "0" ? <p className='text-white line-through'>{product.fake_price} Mad</p> : <></>
                 }
               </div>
               <div className='flex flex-col gap-2'>
                 <h1 className='font-bold text-2xl text-white'>Point Fort :</h1>
-                <ul className='text-white flex flex-col gap-2'>
-                  {product.pointfort.map(function(e){
-                    return(
-                      <li>{e}</li>
-                    )
-                  })}
-                </ul>
+               <div className='text-white flex flex-col gap-2'>
+                {
+                  product.pointfort
+                }
+               </div>
               </div>
               {
-                product.available ? 
+                product.available !=="0" ? 
                 <div className='flex items-center gap-5'>
-                    <input type="number" className='w-24 focus:outline-none pl-3 h-7 rounded-md bg-zinc-800 text-white' defaultValue={1} min={1}/>
-                    <button className='w-36 h-10 transition-all duration-500 hover:bg-white hover:text-orange-500 cursor-pointer rounded-md bg-orange-500 text-white'>Ajouter Au Panier</button>
+                    <input type="number" id='qte' defaultValue={1} className='w-24 focus:outline-none pl-3 h-7 rounded-md bg-zinc-800 text-white'  min={1}/>
+                    <button className='w-36 h-10 transition-all duration-500 hover:bg-white hover:text-orange-500 cursor-pointer rounded-md bg-orange-500 text-white' onClick={()=>Additem(product.id)}>Ajouter Au Panier</button>
                 </div> : <p className='text-red-500 text-sm'>Rupture du Stock</p>
               }
             </div>
@@ -195,7 +244,7 @@ let [detailscontent,setdetailscontent] = useState({
           <nav className='w-[95%] min-h-96 h-auto storecolor border-2 border-gray-500 rounded-md'>
             <div className='w-[300px] h-14 flex gap-3 mt-1 ml-1'>
                <nav className={`w-1/2 h-full bg-gray-700 flex justify-center items-center ${detailscontent.active === 1 ? "text-orange-500" : "text-white"} transition-all duration-500 hover:text-orange-500 text-xl cursor-pointer`} onClick={()=>setdetailscontent((prev) =>({...prev,active : prev.active = 1,component : prev.component = <Description />}))}>Descriton</nav> 
-               <nav className={`w-1/2 h-full bg-gray-700 flex justify-center items-center ${detailscontent.active === 2 ? "text-orange-500" : "text-white"} transition-all duration-500 hover:text-orange-500 text-xl cursor-pointer`} onClick={()=>setdetailscontent((prev) =>({...prev,active : prev.active = 2,component : prev.component = <Comment />}))}>Avis</nav>
+               <nav className={`w-1/2 h-full bg-gray-700 flex justify-center items-center ${detailscontent.active === 2 ? "text-orange-500" : "text-white"} transition-all duration-500 hover:text-orange-500 text-xl cursor-pointer`} onClick={()=>setdetailscontent((prev) =>({...prev,active : prev.active = 2,component : prev.component = <Comment tittle ={product.tittle} id={product.id} state={Comments} state_fun ={setComments}/>}))}>Avis (<span>{Comments.length}</span>)</nav>
             </div>
             {
               detailscontent.component
@@ -206,13 +255,13 @@ let [detailscontent,setdetailscontent] = useState({
                     <Slider {...settings}>
                       {
                         additional_product.map(function(e){
-                          let product = Data[e]
+                          let product = DataBase[e]
                           return(
-                          <nav id={product.id} key={product.id} className={`group cursor-pointer transition-all duration-500 hover:scale-95 product_color  pt-4 gap-3 rounded-md w-[300px] h-[470px] relative`}>
+                          <nav  key={parseInt(product.id)} className={`group cursor-pointer transition-all duration-500 hover:scale-95 product_color  pt-4 gap-3 rounded-md w-[300px] h-[470px] relative`}>
                             <div className='w-[180px] flex-col group-hover:opacity-55 transition-all duration-500 bg-gray-400 h-[180px] rounded-md flex justify-center items-center relative left-1/2 -translate-x-1/2'>
-                              <img src={product.pic} className="rounded-md w-[90%] h-[90%]" alt="product" />
+                              <img src={`http://localhost/MY_PROJECTS/KeroumiDash/products/${product.pic}`} className="rounded-md w-[90%] h-[90%]" alt="product" />
                               {
-                                product.fake_price ? <p className='bg-orange-500 absolute top-0 right-0 w-12 h-12 rounded-full flex justify-center items-center text-white text-sm'>Promo!</p> : <></>
+                                product.fake_price !== "0" ? <p className='bg-orange-500 absolute top-0 right-0 w-12 h-12 rounded-full flex justify-center items-center text-white text-sm'>Promo!</p> : <></>
                               }
                             </div>
                             <div className='flex flex-col items-center gap-3 relative h-1/2 mt-2'>
@@ -226,10 +275,10 @@ let [detailscontent,setdetailscontent] = useState({
                                 </div>
                                 <div className='flex gap-4 items-center'>
                                   <p className='text-zinc-500 test-sm'>{product.price} MAD</p>
-                                  {product.fake_price ? <p className='text-zinc-500 line-through test-sm'>{product.fake_price} MAD</p> : <></>}
+                                  {product.fake_price !=="0"? <p className='text-zinc-500 line-through test-sm'>{product.fake_price} MAD</p> : <></>}
                                 </div>
                                 {
-                                  product.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3' onClick={()=>Additem(product.id)}>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>switch_index(product.id)}>lire la suite</button>
+                                  product.available !== "0" ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3' onClick={()=>Additem(product.id)}>Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>switch_index(product.id)}>lire la suite</button>
                                 }
                             </div>
                           </nav>
@@ -243,18 +292,18 @@ let [detailscontent,setdetailscontent] = useState({
                            {/* End the product details section */}
 
         <section className=' h-auto w-full flex flex-col items-center gap-5 justify-between'>
-              <nav className='bg-zinc-800 mt-2 border-2 border-gray-400  w-full store:w-[380px] min-h-44 h-auto rounded-md pl-9 flex flex-col justify-evenly'>
+              <nav className='bg-zinc-800 mt-2 border-2 border-gray-400  w-full store:w-[380px] min-h-44 max-h-[600px] overflow-y-auto rounded-md pl-9 flex flex-col justify-evenly'>
                 { card.length > 0 ? 
                   <>
                     <h1 className='text-white font-bold text-[30px]'>Cart</h1>
                     <div className='space-y-5 pb-4 mt-4'>
                     {
                       card.map(function(e){
-                        let product = Data[e]
+                        let product = DataBase.filter((prod)=>parseInt(prod.id) === e.prod)[0]
                         return(
-                          <nav className='w-full h-20 flex items-center gap-4' key={product.id}>
+                          <nav className='w-full h-20 flex items-center gap-4' key={parseInt(product.id)}>
                             <div className='h-full w-24 rounded-md overflow-hidden relative'>
-                              <img src={product.pic} alt="picture" className='w-full h-full object-cover' />
+                              <img src={`http://localhost/MY_PROJECTS/KeroumiDash/products/${product.pic}`} alt="picture" className='w-full h-full object-cover' />
                               <i className="bi bi-x absolute -top-3 -left-1 text-orange-500 text-[30px] transition-colors duration-500 hover:text-black cursor-pointer" onClick={()=>RemoveItem(product.id)}></i>
                             </div>
                             <div className='text-white fotn-bold w-2/3 space-y-2'>
@@ -290,11 +339,12 @@ let [detailscontent,setdetailscontent] = useState({
                     {
                       element.map(function(e,index){
                         index++
-                        let product = Data[e]
+                        let product = DataBase[e]
+                        // console.log(product)
                         return(
-                              <div key={product.id} className={`w-full h-28 flex items-center justify-between ${index !== element.length ? "second_product" : null}`}>
+                              <div key={parseInt(product.id)} className={`w-full h-28 flex items-center justify-between ${index !== element.length ? "second_product" : null}`}>
                                   <div className='w-[100px] h-24  rounded-md overflow-hidden'>
-                                    <img src={product.pic} alt="pic" className='w-full h-full object-cover' />
+                                    <img src={`http://localhost/MY_PROJECTS/KeroumiDash/products/${product.pic}`} alt="pic" className='w-full h-full object-cover' />
                                   </div>
                                   <div className='flex flex-col gap-5 w-2/3 '>
                                     <h1 className='text-white cursor-pointer transition-all duration-500 hover:text-orange-500'onClick={()=>switch_index(product.id)}>{product.tittle}</h1>

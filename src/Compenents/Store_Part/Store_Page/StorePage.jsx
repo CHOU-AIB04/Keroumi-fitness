@@ -7,7 +7,10 @@ import { useContext } from 'react';
 import { shareProductDetails } from '../../../Contexts/ProductDetails';
 import { json, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 const StorePage = ({onload}) => {
+  // this import for testing if the Data imported from database is working well
+  let {DataBase,setDataBase} = useContext(shareProductDetails)
   // this usestate it's for take the localstorage array 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,75 +25,80 @@ const StorePage = ({onload}) => {
     productgrid : "product:grid-cols-2 store:grid-cols-3",
     productproperty : "w-[330px]"
   })
-  let {card} = useContext(shareProductDetails)
-  let {setcard} = useContext(shareProductDetails)
-  let {setselecteditem} = useContext(shareProductDetails)
+  let {card,setcard,setselecteditem,search} = useContext(shareProductDetails)
   let [system,setsystem] = useState({
     sys :1,
     filter: null
   })
-  let [filter,setfilter] = useState(Data)
+  let [filter,setfilter] = useState(DataBase)
   let protein_count = null
   let debardeur_count = null
-  let protein_product = Data.filter(function(e){
-    if (e.protein) {
+  let protein_product = DataBase.filter(function(e){
+    if (parseInt(e.protein)) {
       protein_count++
       return e
     }
   })
-  let debardeur_product = Data.filter(function(e){
-    if(!e.protein){
+  let debardeur_product = DataBase.filter(function(e){
+    if(!parseInt(e.protein)){
       debardeur_count++
       return e
     }
   })
+  // thiu code for get the value product_name param from url 
+  const product_name = search.get("product_name")
+  const filter_product = DataBase.filter((prod)=> prod.tittle.toLowerCase().includes(product_name));
+  // const displayed_product = product_name === "" || search.has("product_name") === false ? filter : setfilter(filter_product)
   // this function it's for switching the current product in the product details
   function shareindex(id){
-    setselecteditem(id)
+    setselecteditem(parseInt(id))
     navigate("/Keroumi-fitness/Store/Product-details")
     window.scrollTo({
       top:450,
       behavior:"smooth"
     })
-    window.localStorage.setItem("currentproduct",id)
+    window.localStorage.setItem("currentproduct",parseInt(id))
   }
   let {setcardtot} = useContext(shareProductDetails)
   let {setpromocode} = useContext(shareProductDetails)
   // this function it's for adding a new product to the card component and add it in local storage eitheir
   function Additem(id){
+
       //  the first item from L.s . for get the an array to push in this array new product and display it card component
     let localarray = localStorage.getItem("arr")
         // this one it's for take this item from L.S and add on it the product price to display it in the card component
     let totlocal = +localStorage.getItem("total")
-    let exist = localarray.includes(id-1)
-    let productprice = Data[id-1].price
+    let exist = localarray.includes(parseInt(id))
+    let productprice = DataBase.filter((e)=> parseInt(e.id) === parseInt(id))[0].price
     if(exist){
       toast.error("Product Already exist")
       return
     }else{
-      let array = [...card,id-1]
+      let array = [...card,{prod : parseInt(id),qte : 1}]
       toast.success("Added to Card")
       window.localStorage.setItem("arr",JSON.stringify(array))
       setcard(array)
-      let tot = totlocal + productprice
+      let tot = totlocal + parseInt(productprice)
       window.localStorage.setItem("total",tot)
       setcardtot(tot)
       setpromocode(tot)
     
     }
+
+  
   }
 
   let product = filter.map(function(e){
     return(
       <nav id={e.id} key={e.id} className={`group cursor-pointer transition-all duration-500 hover:scale-95 product_color flex flex-col items-center pt-4 gap-3 rounded-md ${itemsdisplay.productproperty} h-[470px] relative`}>
         <div className='w-[250px] flex-col group-hover:opacity-55 transition-all duration-500 bg-gray-400 h-[250px] rounded-md flex justify-center items-center relative'>
-          <img src={e.pic} className="rounded-md w-4/5 h-4/5" alt="product" />
+          <img src={`http://localhost/MY_PROJECTS/KeroumiDash/products/${e.pic}`} className="rounded-md w-4/5 h-4/5" alt="product" />
           {
-            e.fake_price ? <p className='bg-orange-500 absolute top-0 right-0 w-14 h-14 rounded-full flex justify-center items-center text-white text-sm'>Promo!</p> : <></>
+            e.fake_price !=="0.00" ? <p className='bg-orange-500 absolute top-0 right-0 w-14 h-14 rounded-full flex justify-center items-center text-white text-sm'>Promo!</p> : <></>
           }
         </div>
        <div className='flex flex-col items-center gap-3 relative h-1/2'>
-        <h1 className='text-white font-bold uppercase text-center w-[90%] transition-colors duration-500 cursor-pointer hover:text-orange-500' onClick={()=>shareindex(e.id)}>{e.tittle}</h1>
+        <h1 className='text-white font-bold uppercase text-center w-[90%] transition-colors duration-500 cursor-pointer hover:text-orange-500' onClick={()=>shareindex(parseInt(e.id))}>{e.tittle}</h1>
           <div className='flex gap-1 items-center'>
             <i className="bi bi-star-fill text-blue-400"></i>
             <i className="bi bi-star-fill text-blue-400"></i>
@@ -99,11 +107,11 @@ const StorePage = ({onload}) => {
             <i className="bi bi-star-fill text-blue-400"></i>
           </div>
           <div className='flex gap-4 items-center'>
-            <p className='text-zinc-500 test-sm'>{e.price} MAD</p>
-            {e.fake_price ? <p className='text-zinc-500 line-through test-sm'>{e.fake_price} MAD</p> : <></>}
+            <p className='text-zinc-500 test-sm'>{parseInt(e.price)} MAD</p>
+            {e.fake_price !=="0.00" ? <p className='text-zinc-500 line-through test-sm'>{e.fake_price} MAD</p> : <></>}
           </div>
           {
-            e.available ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3' onClick={()=>Additem(e.id)}> Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>shareindex(e.id)}>lire la suite</button>
+            e.available !== "0" ? <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all duration-500 hover:scale-105 hover:bg-white sh hover:text-orange-500 absolute bottom-3' onClick={()=>Additem(e.id)}> Ajouter au panier</button> : <button className='text-white font-bold w-[150px] h-10 rounded-xl bg-orange-500 transition-all sh duration-500 hover:scale-105 hover:bg-white hover:text-orange-500 absolute bottom-3' onClick={()=>shareindex(e.id)}>lire la suite</button>
           }
        </div>
       </nav>

@@ -8,6 +8,9 @@ import Data from '../Product-Data/Data'
 
 
 const Card = ({onload}) => {
+  // this import for testing if the Data imported from database is working well
+  let {DataBase,setDataBase} = useContext(shareProductDetails)
+
   // this useeffect to load the header and footer component when this component load
   useEffect(() => {
     const fetchData = async () => {
@@ -63,13 +66,13 @@ let {setcardtot} = useContext(shareProductDetails);
 // this function it's for delete item from the local storage and update the total item from the L.S
 
 function RemoveItem(id){
-  let index = id-1
+  let index = parseInt(id)
   let localtot = +window.localStorage.getItem("total")
-  let productprice = Data[id-1].price
-  let newtot = localtot-productprice
+  let productprice = DataBase.filter((e)=> parseInt(e.id) === index)[0].price
+  let newtot = localtot-parseInt(productprice)
   let promotot = newtot - (newtot*0.1)
   let array = JSON.parse(window.localStorage.getItem("arr"))
-  let newarray = array.filter(element => element !== index);
+  let newarray = array.filter(element => element.prod !== index);
   window.localStorage.setItem("arr",JSON.stringify(newarray))
   setcard(newarray)
   window.localStorage.setItem("total",newtot)
@@ -126,21 +129,21 @@ function Promocode2(){
           </tr>
           {
             card.map(function(e){
-              let product = Data[e]
+              let product = DataBase.filter((prod)=>parseInt(prod.id) === e.prod)[0]
               return(
                 <tr className='text-[20px] text-center text-white'>
                 <td className='border-2 w-[100px] border-zinc-800 h-[90px]'>
                   <i className="bi bi-x-circle-fill text-[30px] cursor-pointer transition-colors duration-500 hover:text-orange-500" onClick={()=>RemoveItem(product.id)}></i>
                 </td>
                 <td className=' h-[90px] w-[120px] flex justify-center items-center'>
-                  <img src={product.pic} alt="pic" className='w-[70%] h-[90%] rounded-md object-cover' />
+                  <img src={`http://localhost/MY_PROJECTS/KeroumiDash/products/${product.pic}`} alt="pic" className='w-[70%] h-[90%] rounded-md object-cover' />
                 </td>
                 <td className='border-2 border-zinc-800 h-[90px] text-[18px]'>{product.tittle}</td>
                 <td className='border-2 border-zinc-800 h-[90px]'>{product.price}</td>
                 <td className='border-2 border-zinc-800 h-[90px]'>
-                  <input type="number" defaultValue={1} min={1} className="w-[100px] h-9 rounded-lg pl-2 pr-2 focus:outline-none product_color"/>
+                  <input type="number" value={e.qte} min={1} readOnly className="w-[100px] h-9 rounded-lg pl-2 pr-2 focus:outline-none product_color"/>
                 </td>
-                <td className='border-2 border-zinc-800 h-[90px]'>{product.price}</td>
+                <td className='border-2 border-zinc-800 h-[90px]'>{product.price*e.qte}</td>
               </tr>
               )
              
@@ -153,7 +156,7 @@ function Promocode2(){
                   <input type="text" name="" id="Codeinput" className='w-52 h-12 rounded-2xl product_color text-white pl-3 focus:outline-none' placeholder='Code Promo'/>
                   <button className='bg-orange-500 h-12 rounded-xl w-52 text-white transition-colors duration-500 hover:bg-white hover:text-orange-500 sh font-bold' onClick={Promocode}>Appliquer le code Promo</button>
                 </div>
-                <button className='bg-orange-500 h-12 rounded-xl w-52 text-white transition-colors duration-500 hover:bg-white hover:text-orange-500 sh font-bold'>Mettre A Jour le Panier</button>
+                {/* <button className='bg-orange-500 h-12 rounded-xl w-52 text-white transition-colors duration-500 hover:bg-white hover:text-orange-500 sh font-bold'>Mettre A Jour le Panier</button> */}
               </nav>
             </td>
           </tr>
@@ -179,7 +182,7 @@ function Promocode2(){
               <table className={`w-[95%] ${visible_table.medium_table}`}>
              {
               card.map(function(e){
-                let product = Data[e]
+                let product = DataBase.filter((prod)=>parseInt(prod.id) === e.prod)[0]
                 return(
                  <>
                   <tr className='text-center border-2 h-16 border-zinc-800'>
@@ -207,7 +210,7 @@ function Promocode2(){
                     <td>
                     <div className='flex items-center justify-between pl-4 pr-4 text-white font-bold '>
                         <p>Quantité</p>
-                        <input type="number" defaultValue={1} min={1} className="w-[100px] h-9 rounded-lg pl-2 pr-2 focus:outline-none product_color"/>
+                        <input type="number" value={e.qte} readOnly min={1} className="w-[100px] h-9 rounded-lg pl-2 pr-2 focus:outline-none product_color"/>
                       </div>
                     </td>
                   </tr>
@@ -215,7 +218,7 @@ function Promocode2(){
                     <td>
                     <div className='flex items-center justify-between pl-4 pr-4 text-white font-bold '>
                         <p>Sous-Total</p>
-                        <h2>{product.price} Mad</h2>
+                        <h2>{product.price*e.qte} Mad</h2>
                       </div>
                     </td>
                   </tr>
@@ -227,7 +230,7 @@ function Promocode2(){
                 <td className='flex flex-col items-center gap-2 border-zinc-800'>
                   <input type="text" className='w-[90%] h-12 rounded-2xl product_color text-white pl-3 focus:outline-none' placeholder='Code Promo' id='Codeinput2'/>
                   <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white font-bold transition-colors duration-500 hover:bg-white hover:text-orange-500 sh' onClick={Promocode2}>Appliquer le code Promo</button>
-                  <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white font-bold transition-colors duration-500 hover:bg-white hover:text-orange-500 sh'>Mettre A Jour le Panier</button>
+                  {/* <button className='bg-orange-500 h-12 rounded-xl w-[90%] text-white font-bold transition-colors duration-500 hover:bg-white hover:text-orange-500 sh'>Mettre A Jour le Panier</button> */}
                 </td>
               </tr>
         </table> 

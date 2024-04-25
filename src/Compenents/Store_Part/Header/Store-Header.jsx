@@ -1,11 +1,11 @@
 import {React,useContext,useState} from "react";
 import logo from '../../../pictures/logo_keroumi.png'
-import { Link ,NavLink,useNavigate} from "react-router-dom";
+import { Link ,NavLink,useNavigate, useSearchParams} from "react-router-dom";
 import { HideNav } from "../../../Contexts/Hide-nav-context";
 import Background from "../StoreBackground/Background";
 import { shareProductDetails } from "../../../Contexts/ProductDetails";
  const StoreHeader =()=>{
-  let {card} = useContext(shareProductDetails)
+  let {card,setsearch} = useContext(shareProductDetails)
   let navigate = useNavigate()
   let [position ,setposition] = useState("relative")
   let {Hidenav} = useContext(HideNav)
@@ -19,6 +19,10 @@ import { shareProductDetails } from "../../../Contexts/ProductDetails";
       top:450,
       behavior:"smooth"
     })
+  }
+  const handlechange = ()=>{
+   let getname = document.getElementById("getname").value
+    setsearch({"product_name": getname})
   }
   return (
     <>
@@ -51,7 +55,7 @@ import { shareProductDetails } from "../../../Contexts/ProductDetails";
                 </ul>
                 <div className="bg-white rounded-md overflow-hidden w-[240px] store:w-[300px] h-9 mb-3 store:mb-0">
                     <i className="bi bi-search text-gray-600 ml-1"></i>
-                    <input type="text" placeholder="Rechercher des produit..." className="h-full pl-2 focus:outline-none"/>
+                    <input type="text" id="getname" placeholder="Rechercher des produit..." className="h-full pl-2 focus:outline-none" onChange={handlechange}/>
                 </div>
             </nav>
             <button className="h-9 small_tablet:h-11 w-24 small_tablet:w-36 text-white font-bold cursor-pointer transition-all duration-500 hover:text-orange-500 hover:bg-white hover:scale-105 bg-orange-500 rounded-xl absolute right-9 store:right-0 top-1/2 -translate-y-1/2">Protein</button>

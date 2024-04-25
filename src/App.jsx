@@ -1,5 +1,5 @@
 import { useState,lazy,Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation, json } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, json, useSearchParams } from 'react-router-dom';
 import Header from "./Compenents/Header/Header";
 import { HideNav } from "./Contexts/Hide-nav-context";
 import { Loading } from "./Compenents/Preloading/Loading";
@@ -16,6 +16,7 @@ import Comment from "./Compenents/Store_Part/ProductDetail/Comment/Comment";
 import NotFound from "./Compenents/PagenotFound/NotFound";
 import { Toaster } from "react-hot-toast";
 import Checkout from "./Compenents/Store_Part/Checkout/Checkout";
+import axios from "axios"
 const StorePage = lazy(()=>import('./Compenents/Store_Part/Store_Page/StorePage'))
 const Footer = lazy(()=>import('./Compenents/Footer/Footer'))
 const Home = lazy(()=> import('./Compenents/Home/Home'))
@@ -24,8 +25,17 @@ const About = lazy(()=> import('./Compenents/About/About'))
 const ProductDetails = lazy(()=> import('./Compenents/Store_Part/ProductDetail/ProductDetails')) ;
 const Card = lazy(()=>import('./Compenents/Store_Part/Card/Card'))
 const Store = lazy(()=> import("./Compenents/Store_Part/Store_Page/Store"));
-Store
+
+
 function App() {
+  // here let's test import data from database (lyaawm lmaw3ouud)
+  let [DataBase,setDataBase] = useState([]);
+  useEffect(()=>{
+    axios.get("http://localhost:80/MY_PROJECTS/KeroumiDash/").then((res)=>{
+      setDataBase(res.data)
+      console.log(res.data)
+    })
+  },[])
             //  this state it's for the card conponent 
   let [card,setcard] = useState([])
 
@@ -140,9 +150,13 @@ function App() {
     })
   }
   document.body.style.backgroundColor = storepath ? "#191918" : "black"
+  // this usesearchparam for use 
+  let [search ,setsearch] = useSearchParams()
+
+  
   return (
     <HideNav.Provider value={{ shownav, setshownav, Hidenav,handle_click,scroll,storepath}}>
-    <shareProductDetails.Provider value={{selecteditem,setselecteditem,card,setcard,cardtot,setcardtot,promocode,setpromocode}}>
+    <shareProductDetails.Provider value={{selecteditem,setselecteditem,card,setcard,cardtot,setcardtot,promocode,setpromocode,DataBase,setDataBase,search,setsearch}}>
         <div><Toaster position="top-right" reverseOrder={true}/></div>
         {
           storepath  &&  isloaded.storeHeader ? <><StoreHeader /> <Background /></> : isloaded.header ? <Header /> : <></>

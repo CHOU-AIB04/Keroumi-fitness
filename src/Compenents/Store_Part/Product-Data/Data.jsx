@@ -133,7 +133,7 @@ export default [
     },
     {
         id : 8,
-        tittle: "NITROTECH 100%WHEY GOLD – MUSCLETECH", 
+        tittle: "NITROTECH 100% WHEY GOLD – MUSCLETECH", 
         pic : New_postA ,
         price : 739.00, 
         fake_price : 780.00, 
