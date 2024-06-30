@@ -191,7 +191,9 @@ function Promocode(){
                   <td className='border-2 border-zinc-600 w-[25%] h-[55px] text-end pr-4'>{promocode} Mad</td>
                 </tr>
             </table>
-            <table className='w-full relative top-7'>
+            {
+              card.length !== 0 ? 
+              <table className='w-full relative top-7'>
                   <tr>
                     <td className='border border-zinc-600 h-[100px]'>
                       <div className='relative bottom-5 pl-4 text-zinc-500 paybefore'>Payement a livraison</div>
@@ -203,7 +205,8 @@ function Promocode(){
                       <button type='submit'  className='w-52 h-10 bg-orange-500 text-white font-bold rounded-xl sh transition-colors duration-500 hover:text-orange-500 hover:bg-white self-end mr-4'>Commander</button>
                     </td>
                   </tr>
-            </table>
+              </table> : <></>
+            }
           </nav>
         </form>
      </section>

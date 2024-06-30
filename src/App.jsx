@@ -29,11 +29,14 @@ const Store = lazy(()=> import("./Compenents/Store_Part/Store_Page/Store"));
 
 function App() {
   // here let's test import data from database (lyaawm lmaw3ouud)
-  let [DataBase,setDataBase] = useState([]);
+  let [DataBase,setDataBase] = useState(()=>{
+    const data = JSON.parse(window.sessionStorage.getItem("Data"))
+    return data ? data : []
+  });
   useEffect(()=>{
     axios.get("http://localhost:80/MY_PROJECTS/KeroumiDash/").then((res)=>{
       setDataBase(res.data)
-      console.log(res.data)
+      window.sessionStorage.setItem("Data",JSON.stringify(res.data))
     })
   },[])
             //  this state it's for the card conponent 
@@ -60,11 +63,12 @@ function App() {
   let [promocode,setpromocode] = useState(cardtot)
   // this useeffect it's for inital an item in the L.S to add on it some calcul if L.S.length <= 2 
   useEffect(()=>{
-    if(window.localStorage.length !==3){
+    if(!window.localStorage.getItem("total") && !window.localStorage.getItem("arr")&& !window.localStorage.getItem("currentproduct")){
       window.localStorage.setItem("total","")
       window.localStorage.setItem("arr",[])
       window.localStorage.setItem("currentproduct","")
     }
+
   },[])
   let [isloaded,setisloaded] = useState({
     footer1: false,
